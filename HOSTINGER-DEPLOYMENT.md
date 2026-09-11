@@ -66,4 +66,4 @@ In Hostinger wählst du beim Erstellen der Node.js-Anwendung die GitHub-Quelle a
 
 ## Sicherheit und offene Produktpunkte
 
-Die aktuelle Version nimmt keine Zahlungen an und enthält noch keine fertige Originaldemo. Für einen öffentlichen Verkaufsstart müssen Betreiberangaben, Rechtstexte, Backups für den Datenordner, E-Mail-Verifizierung, Passwort-Reset, Monitoring und ein belastbares Löschkonzept ergänzt werden.
+Die aktuelle Version nimmt keine Zahlungen an. Die ausgearbeitete Originaldemo ist unter `/demo` erreichbar (sichtbarer Testcode: PABLO); sie benötigt weder Login noch zusätzliche Umgebungsvariablen und speichert ihren Fortschritt auf dem jeweiligen Gerät. Für einen öffentlichen Verkaufsstart müssen Betreiberangaben, Rechtstexte, Backups für den Datenordner, E-Mail-Verifizierung, Passwort-Reset, Monitoring und ein belastbares Löschkonzept ergänzt werden.

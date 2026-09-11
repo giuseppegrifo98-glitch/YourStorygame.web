@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <base href="/demo/">
+  <meta name="robots" content="noindex, nofollow">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#173d42">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="description" content="Eine kleine spielbare Zeitreise. Für Luana.">
+  <title>Your Story · Demo für Luana</title>
+  <link rel="icon" href="icon.svg" type="image/svg+xml">
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="mobile.css">
+</head>
+<body>
+  <header class="masthead">
+    <a class="wordmark" href="#" id="home-link" aria-label="Zur Spielübersicht"><span class="brand-mark" aria-hidden="true">∞</span><span>your story<span class="brand-dot">.</span></span></a>
+    <a class="edition" href="/">← ZUR YOUR STORY WEBSITE</a>
+    <div class="header-actions"><button id="sound" class="quiet" aria-pressed="false" title="Musik ein- oder ausschalten"><span id="sound-icon">♫</span><span id="sound-label">Ton aus</span></button><button id="pause" class="quiet hidden" aria-label="Spiel pausieren">Ⅱ Pause</button><button id="fullscreen" class="icon-btn" aria-label="Vollbild umschalten" title="Vollbild">⛶</button></div>
+  </header>
+  <main>
+    <section id="cover" class="cover">
+      <div class="cover-copy">
+        <div class="eyebrow"><span class="tiny-star">✦</span> FÜR LUANA. VON MIR.</div>
+        <h1>Weißt du<br><em>noch?</em><span class="title-star" aria-hidden="true">✧</span></h1>
+        <p class="lead">Eine Tanzfläche. Ein Fiat Bravo.<br>Ein kleines graues Fellknäuel.<br>Und mittendrin: <strong>wir zwei.</strong></p>
+        <p class="cover-note">Komm, wir spielen unsere Geschichte noch einmal.<br>Diesmal siehst du sie durch meine Augen.</p>
+        <form id="unlock-form" class="unlock-form">
+          <label for="gift-code">DEIN GESCHENKCODE</label>
+          <div class="unlock-row"><input id="gift-code" name="gift-code" placeholder="Code eingeben" autocomplete="off" autocapitalize="characters" spellcheck="false" maxlength="32" aria-describedby="code-hint code-error"><button class="primary" type="submit">Geschenk öffnen <span aria-hidden="true">↗</span></button></div>
+          <p id="code-error" class="error" role="alert"></p>
+          <p id="code-hint" class="fine">Zum Ausprobieren: <button type="button" id="fill-code">PABLO</button><span class="sep">·</span>ca. 5–10 Minuten<span class="sep">·</span>5 Kapitel</p>
+        </form>
+        <button id="continue-game" class="text-button hidden">Deine Zeitreise fortsetzen →</button>
+      </div>
+      <div class="cover-art">
+        <div class="art-frame"><canvas id="cover-canvas" width="760" height="820" role="img" aria-label="Gezeichnete Spielfiguren von Luana und ihrem Partner auf der Tanzfläche"></canvas><div class="art-caption"><span>UNSER ERSTES KAPITEL</span><strong>Alles begann mit einem Tanz.</strong><span class="caption-line"></span></div></div>
+        <div class="memory-label"><span class="small-heart">♡</span><span>Für all die Momente,<br><em>die uns zu uns machen.</em></span></div>
+        <span class="art-spark one" aria-hidden="true">✧</span><span class="art-spark two" aria-hidden="true">✦</span>
+      </div>
+    </section>
+    <section id="play" class="play hidden" aria-label="Spiel">
+      <div class="chapter-heading"><div><span id="chapter-number" class="eyebrow">KAPITEL 01 / 05</span><h2 id="chapter-title">Eine ganze Tanzfläche.</h2></div><div class="chapter-side"><span id="chapter-subtitle">Die Nacht, in der alles anfing.</span><button id="chapters-button" class="quiet" disabled title="Nach dem ersten vollständigen Durchspielen verfügbar">⌑ Erinnerungen</button></div></div>
+      <div id="stage" class="stage">
+        <canvas id="game" width="1280" height="720" tabindex="0" role="img" aria-label="Interaktive Spielszene. Bewegung mit Pfeiltasten oder WASD, Interaktion mit E oder Leertaste."></canvas>
+        <div id="objective" class="objective"><span class="objective-icon">✦</span><div><span class="objective-label">DEIN MOMENT</span><p id="objective-text">Finde Maria auf der Tanzfläche.</p></div></div>
+        <div id="scene-badge" class="scene-badge"></div>
+        <div id="game-tools" class="game-tools hidden"><button id="game-sound" aria-label="Ton umschalten" aria-pressed="false">♪</button><button id="game-pause" aria-label="Spiel pausieren">Ⅱ</button><button id="game-exit" aria-label="Vollbild verlassen">⛶</button></div>
+        <button id="fullscreen-nudge" class="fullscreen-nudge hidden">⛶ Im Vollbild spielen</button>
+        <div id="mobile-pad" class="mobile-pad hidden">
+          <button id="mobile-action" class="mobile-action" aria-label="Aktion oder Sprung">AKTION</button>
+          <div id="joystick" class="joystick" role="group" aria-label="Joystick: ziehen oder auf eine Richtung tippen"><span class="joystick-arrow joy-left">←</span><span class="joystick-arrow joy-up">↑</span><span class="joystick-arrow joy-down">↓</span><span class="joystick-arrow joy-right">→</span><span id="joystick-knob" class="joystick-knob"></span></div>
+          <span id="joystick-label" class="joystick-label">BEWEGEN</span>
+        </div>
+        <div id="rotate-hint" class="rotate-hint hidden" role="dialog" aria-modal="true" aria-labelledby="rotate-title"><span class="rotate-icon" aria-hidden="true">▯ ↻ ▭</span><h3 id="rotate-title">Einmal das Handy drehen.</h3><p>Im Querformat und Vollbild habt ihr die ganze Tanzfläche für euch.</p><button id="rotate-fullscreen" class="primary">⛶ Vollbild starten</button><button id="rotate-dismiss" class="text-button">Erst einmal so spielen</button></div>
+        <div id="fullscreen-help" class="fullscreen-help hidden" role="status">Der Spielmodus füllt jetzt die Seite. Falls die Browserleiste bleibt: Öffne die Demo über „Zum Home-Bildschirm“ bzw. „Zum Startbildschirm hinzufügen“, sofern dein Browser das anbietet.<button id="fullscreen-help-close" aria-label="Hinweis schließen">×</button></div>
+        <div id="pablo-score" class="pablo-score hidden" role="status" aria-live="polite"><span>PABLOS LECKERLIS</span><strong id="pablo-count">0 / 10</strong></div>
+        <div id="toast" class="toast hidden" role="status"></div>
+        <button id="interact" class="interact hidden"><kbd>E</kbd><span>Reden</span></button>
+        <div id="rhythm-controls" class="rhythm-controls hidden" aria-label="Tanzrichtungen"><button data-dance="0" aria-label="Tanzschritt links">←</button><button data-dance="1" aria-label="Tanzschritt oben">↑</button><button data-dance="2" aria-label="Tanzschritt unten">↓</button><button data-dance="3" aria-label="Tanzschritt rechts">→</button></div>
+        <div id="dialogue" class="dialogue hidden" aria-live="polite"><div class="portrait"><canvas id="portrait" width="160" height="160" aria-hidden="true"></canvas></div><div class="dialogue-copy"><span id="speaker" class="speaker"></span><p id="dialogue-text"></p></div><button id="next-dialogue" aria-label="Dialog weiter">Weiter <span>↵</span></button></div>
+        <div id="transition" class="transition hidden"><span id="transition-small"></span><h3 id="transition-title"></h3><p id="transition-copy"></p><button id="transition-go" class="primary">Weiter in unserer Geschichte <span>→</span></button></div>
+        <div id="retry-overlay" class="retry-overlay hidden" role="dialog" aria-modal="true" aria-labelledby="retry-title"><div class="retry-card"><span class="eyebrow">NOCH EIN VERSUCH.</span><h3 id="retry-title">Das war knapp.</h3><p id="retry-copy"></p><div id="retry-stats" class="retry-stats"></div><button id="retry-go" class="primary">Noch einmal starten ↻</button><button id="retry-skip" class="retry-skip hidden">Challenge überspringen →</button><p id="retry-help" class="retry-help"></p><span class="retry-hint">Enter oder Leertaste · Nur diese Challenge beginnt neu.</span></div></div>
+        <div id="pause-overlay" class="modal-overlay hidden"><div class="paper-modal"><span class="eyebrow">EIN MOMENT FÜR EUCH</span><h3>Die Zeit wartet.</h3><p>Atmet durch. Eure Geschichte läuft nicht davon.</p><button id="resume" class="primary">Weiterspielen →</button><button id="back-cover" class="text-button">Zur Übersicht · Fortschritt bleibt gespeichert</button></div></div>
+        <div id="chapter-overlay" class="modal-overlay hidden"><div class="paper-modal chapter-modal"><span class="eyebrow">EUER ERINNERUNGSALBUM</span><h3>Noch einmal zurück.</h3><div id="chapter-list"></div><button id="close-chapters" class="text-button">Zurück zum Spiel</button></div></div>
+        <div id="finale" class="finale hidden"><span class="eyebrow">DAMALS. HEUTE. UND ALLES, WAS NOCH KOMMT.</span><div class="finale-heart">♡</div><h3>Wir zwei.<br><em>Ein Wir.</em></h3><p>Erinnerungen sind die kleinen Orte in uns,<br>an die wir immer wieder zurückkehren können.</p><p>Dieses Spiel ist nur ein kleiner Anstoß.<br>Das Schönste daran haben wir längst erlebt: <strong>uns.</strong></p><p class="love">Ich liebe dich, Luana.</p><span class="finale-note">Und unsere Geschichte ist noch lange nicht vorbei.</span><button id="finale-chapters" class="primary">Unsere Erinnerungen ansehen <span>↗</span></button></div>
+      </div>
+      <div class="game-footer"><div id="keyboard-hint" class="key-guide"><span><kbd>←</kbd><kbd>→</kbd> Bewegen</span><span><kbd>E</kbd> Interagieren</span><span><kbd>Esc</kbd> Pause</span></div><div class="chapter-progress" aria-label="Kapitel-Fortschritt"><i></i><i></i><i></i><i></i><i></i></div><span id="saved-note" class="saved-note">Fortschritt auf diesem Gerät gespeichert</span></div>
+      <div id="touch-controls" class="touch-controls"><div class="touch-arrows"><button data-key="ArrowLeft" aria-label="Nach links">←</button><button data-key="ArrowUp" aria-label="Nach oben">↑</button><button data-key="ArrowDown" aria-label="Nach unten">↓</button><button data-key="ArrowRight" aria-label="Nach rechts">→</button></div><button data-key="Space" class="touch-action">Aktion / Sprung</button></div>
+      <p class="story-note">Eine spielbare Erinnerung. Einige Dialoge und Details sind für diese Demo liebevoll ergänzt.</p>
+    </section>
+  </main>
+  <footer class="site-footer"><span>EURE GESCHICHTE. ZUM WIEDERERLEBEN.</span><span>Mit ♡ und einer Prise Rambazamba.</span><a class="demo-tag" href="/">← ZUR YOUR STORY WEBSITE</a></footer>
+  <noscript>Bitte aktiviere JavaScript, um eure Geschichte zu spielen.</noscript>
+  <script src="arcade.js"></script>
+  <script src="moments.js"></script>
+  <script src="mobile.js"></script>
+  <script src="game.js"></script>
+</body>
+</html>

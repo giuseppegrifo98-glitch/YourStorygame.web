@@ -24,6 +24,13 @@ Die Anwendung nutzt keine Cloudflare-Dienste. Entwürfe und Konten werden in ein
 - geschütztes Studio für persönliche Entwürfe
 - automatische Speicherung von Namen, Erinnerungen und Nachricht
 - private Bildreferenzen
-- keine Zahlungen und keine fertige Originaldemo aktiviert
+- spielbare Originaldemo für Luana unter `/demo`, mit fünf Kapiteln und Handy-Steuerung
+- keine Zahlungen aktiviert
 
-Die echte Originaldemo wird später ergänzt. Persönliche Inhalte aus anderen Projekten gehören nicht zu diesem Repository.
+## Originaldemo
+
+Die freigegebene Demo liegt unter `public/demo/` und ist über `/demo` erreichbar. Der sichtbare Testcode lautet **PABLO**. Sie benötigt kein Konto; Spielstände bleiben im jeweiligen Browser gespeichert und werden nicht geräteübergreifend synchronisiert.
+
+Die Spiel-Dateien und benötigten Illustrationen stammen aus der fertig ausgearbeiteten Luana-Demo. Lokale Übergabenotizen, Testberichte, ZIP-Archive und Originalfotos sind nicht Teil dieser Veröffentlichung. Die Demo verwendet nur lokale Dateien; sie benötigt keinen separaten Server oder zusätzliche Umgebungsvariablen.
+
+Nach dem GitHub-Push in Hostinger den neuesten Stand von `main` bereitstellen. Die Demo ist dann unter `https://DEINE-DOMAIN/demo` erreichbar.
