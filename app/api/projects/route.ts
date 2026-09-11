@@ -1,0 +1,5 @@
+import { body, db, identity, json, safe, HttpError } from '../service';
+import { emptyStory } from '../../site/story';
+export const dynamic = 'force-dynamic';
+export async function GET() { return safe(async()=> { const owner=await identity(); const rows=await db().prepare('SELECT id, title, revision, updated_at FROM projects WHERE owner_id = ? ORDER BY updated_at DESC').bind(owner).all(); return json(rows.results); }); }
+export async function POST(request:Request) { return safe(async()=>{ const owner=await identity(request); const input=await body(request); const count=await db().prepare('SELECT COUNT(*) AS count FROM projects WHERE owner_id = ?').bind(owner).first<{count:number}>(); if((count?.count||0)>=30) throw new HttpError(409,'project_limit'); const id=crypto.randomUUID(); const now=Date.now(); const data={...emptyStory,language:input.language==='en'?'en':'de'}; await db().prepare('INSERT INTO projects (id, owner_id, title, data, revision, created_at, updated_at) VALUES (?, ?, ?, ?, 0, ?, ?)').bind(id,owner,'',JSON.stringify(data),now,now).run(); return json({id},201); }); }
