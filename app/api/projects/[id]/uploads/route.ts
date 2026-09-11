@@ -1,5 +1,52 @@
-import { db, files, identity, json, safe, owned, HttpError } from '../../../service';
-export const dynamic='force-dynamic';
-type Context={params:Promise<{id:string}>};
-export async function GET(_:Request,context:Context){return safe(async()=>{const{id}=await context.params;await owned(id,await identity());const result=await db().prepare('SELECT id, name, type, size FROM uploads WHERE project_id = ? ORDER BY created_at').bind(id).all();return json(result.results);});}
-export async function POST(request:Request,context:Context){return safe(async()=>{const owner=await identity(request);const{id}=await context.params;await owned(id,owner);if(Number(request.headers.get('content-length')||0)>9*1024*1024)throw new HttpError(413,'file_too_large');const form=await request.formData();const file=form.get('file');if(!(file instanceof File)||!['image/jpeg','image/png','image/webp'].includes(file.type)||file.size>8*1024*1024||file.size===0)throw new HttpError(400,'invalid_file');const count=await db().prepare('SELECT COUNT(*) AS count FROM uploads WHERE project_id = ?').bind(id).first<{count:number}>();if((count?.count||0)>=10)throw new HttpError(409,'upload_limit');const bytes=await file.arrayBuffer();const b=new Uint8Array(bytes);const valid=file.type==='image/jpeg' ? b[0]===255&&b[1]===216&&b[2]===255 : file.type==='image/png' ? b[0]===137&&b[1]===80&&b[2]===78&&b[3]===71 : String.fromCharCode(...b.slice(0,4))==='RIFF'&&String.fromCharCode(...b.slice(8,12))==='WEBP';if(!valid)throw new HttpError(400,'invalid_file');const fileId=crypto.randomUUID(),key=`references/${id}/${fileId}`;await files().put(key,bytes,{httpMetadata:{contentType:file.type}});try{await db().prepare('INSERT INTO uploads (id, project_id, object_key, name, type, size, created_at) VALUES (?, ?, ?, ?, ?, ?, ?)').bind(fileId,id,key,file.name.slice(0,150),file.type,file.size,Date.now()).run();}catch(e){await files().delete(key);throw e;}return json({id:fileId,name:file.name.slice(0,150),type:file.type,size:file.size},201);});}
+import { writeFile } from 'node:fs/promises';
+import { db, identity, json, safe, owned, HttpError } from '../../../service';
+import { uploadPath } from '../../../../../lib/storage';
+export const dynamic = 'force-dynamic';
+export const runtime = 'nodejs';
+type Context = { params: Promise<{ id: string }> };
+
+export async function GET(_: Request, context: Context) {
+  return safe(async () => {
+    const { id } = await context.params;
+    await owned(id, await identity());
+    const result = db().prepare('SELECT id, name, type, size FROM uploads WHERE project_id = ? ORDER BY created_at').all(id);
+    return json(result);
+  });
+}
+
+export async function POST(request: Request, context: Context) {
+  return safe(async () => {
+    const owner = await identity(request);
+    const { id } = await context.params;
+    await owned(id, owner);
+    if (Number(request.headers.get('content-length') || 0) > 9 * 1024 * 1024) throw new HttpError(413, 'file_too_large');
+    const form = await request.formData();
+    const file = form.get('file');
+    if (!(file instanceof File) || !['image/jpeg', 'image/png', 'image/webp'].includes(file.type) || file.size > 8 * 1024 * 1024 || file.size === 0) {
+      throw new HttpError(400, 'invalid_file');
+    }
+    const count = db().prepare('SELECT COUNT(*) AS count FROM uploads WHERE project_id = ?').get(id) as { count: number };
+    if (count.count >= 10) throw new HttpError(409, 'upload_limit');
+    const bytes = new Uint8Array(await file.arrayBuffer());
+    const valid = file.type === 'image/jpeg'
+      ? bytes[0] === 255 && bytes[1] === 216 && bytes[2] === 255
+      : file.type === 'image/png'
+        ? bytes[0] === 137 && bytes[1] === 80 && bytes[2] === 78 && bytes[3] === 71
+        : Buffer.from(bytes.subarray(0, 4)).toString('ascii') === 'RIFF' && Buffer.from(bytes.subarray(8, 12)).toString('ascii') === 'WEBP';
+    if (!valid) throw new HttpError(400, 'invalid_file');
+    const fileId = crypto.randomUUID();
+    const name = file.name.replace(/[^a-zA-Z0-9._-]/g, '_').slice(0, 150) || 'reference-image';
+    const path = uploadPath(id, fileId);
+    await writeFile(path, bytes, { flag: 'wx' });
+    try {
+      db().prepare('INSERT INTO uploads (id, project_id, object_key, name, type, size, created_at) VALUES (?, ?, ?, ?, ?, ?, ?)').run(
+        fileId, id, fileId, name, file.type, file.size, Date.now(),
+      );
+    } catch (error) {
+      const { unlink } = await import('node:fs/promises');
+      await unlink(path).catch(() => undefined);
+      throw error;
+    }
+    return json({ id: fileId, name, type: file.type, size: file.size }, 201);
+  });
+}
