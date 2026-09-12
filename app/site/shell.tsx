@@ -1,10 +1,26 @@
 'use client';
+import { useState } from 'react';
 import { ArrowUpRight, Play, Menu } from 'lucide-react';
 import { useLanguage } from './context';
-import { Sheet, SheetTrigger, SheetContent, SheetTitle, SheetDescription } from '@/components/ui/sheet';
+import { Sheet, SheetTrigger, SheetContent, SheetHeader, SheetTitle, SheetDescription, SheetClose } from '@/components/ui/sheet';
 export function Brand() { return <a href="/" className="brand" aria-label="Your story — Home"><span className="brand-mark"><Play size={20} fill="currentColor" /></span><span>your story.<small>made playable</small></span></a>; }
 export function Header() {
  const {lang,t,toggle} = useLanguage();
- return <header className="site-header wrap"><Brand /><nav className="desktop-nav" aria-label={t('Hauptnavigation','Main navigation')}><a href="/#experience">{t('Das Erlebnis','The experience')}</a><a href="/#how">{t('So funktioniert’s','How it works')}</a><a href="/#packages">{t('Dein Spiel','Your game')}</a><a href="/demo">{t('Demo spielen','Play demo')}</a></nav><div className="header-actions"><button className="language" onClick={toggle} aria-label={t('Switch to English','Auf Deutsch wechseln')}>{lang.toUpperCase()} <span>⌄</span></button><a className="studio-link" href="/studio">{t('Mein Studio','My studio')}</a><a href="/create" className="button small desktop-start">{t('Loslegen','Get started')}<ArrowUpRight size={16}/></a><Sheet><SheetTrigger className="mobile-menu" aria-label={t('Menü öffnen','Open menu')}><Menu/></SheetTrigger><SheetContent><SheetTitle>{t('Entdecke deine Geschichte','Explore your story')}</SheetTitle><SheetDescription>{t('Ein persönliches Spiel beginnt mit euch.','A personal game starts with you.')}</SheetDescription><nav className="mobile-links"><a href="/#experience">{t('Das Erlebnis','The experience')}</a><a href="/#how">{t('So funktioniert’s','How it works')}</a><a href="/demo">{t('Demo spielen','Play demo')}</a><a href="/studio">{t('Mein Studio','My studio')}</a><a className="button" href="/create">{t('Geschichte starten','Start your story')}</a></nav></SheetContent></Sheet></div></header>;
+ const [menuOpen,setMenuOpen] = useState(false);
+ // Radix restores the pre-open scroll position when the sheet closes, which would undo an
+ // in-page anchor jump. Close first, then scroll once the sheet is gone.
+ const jump = (href:string) => (event:React.MouseEvent) => {
+  const id = href.split('#')[1];
+  if(!id) return;
+  event.preventDefault();
+  setMenuOpen(false);
+  setTimeout(()=>{
+   const target = document.getElementById(id);
+   if(!target) return;
+   target.scrollIntoView({behavior:'smooth'});
+   history.replaceState(null,'',`#${id}`);
+  },320);
+ };
+ return <header className="site-header wrap"><Brand /><nav className="desktop-nav" aria-label={t('Hauptnavigation','Main navigation')}><a href="/#experience">{t('Das Erlebnis','The experience')}</a><a href="/#how">{t('So funktioniert’s','How it works')}</a><a href="/#packages">{t('Dein Spiel','Your game')}</a><a href="/demo">{t('Demo spielen','Play demo')}</a></nav><div className="header-actions"><button className="language" onClick={toggle} aria-label={t('Switch to English','Auf Deutsch wechseln')}>{lang.toUpperCase()} <span>⌄</span></button><a className="studio-link" href="/studio">{t('Mein Studio','My studio')}</a><a href="/create" className="button small desktop-start">{t('Loslegen','Get started')}<ArrowUpRight size={16}/></a><Sheet open={menuOpen} onOpenChange={setMenuOpen}><SheetTrigger className="mobile-menu" aria-label={t('Menü öffnen','Open menu')}><Menu/></SheetTrigger><SheetContent className="mobile-sheet"><SheetHeader className="mobile-sheet-head"><SheetTitle>{t('Entdecke deine Geschichte','Explore your story')}</SheetTitle><SheetDescription>{t('Ein persönliches Spiel beginnt mit euch.','A personal game starts with you.')}</SheetDescription></SheetHeader><nav className="mobile-links">{[['/#experience',t('Das Erlebnis','The experience')],['/#how',t('So funktioniert’s','How it works')],['/demo',t('Demo spielen','Play demo')],['/studio',t('Mein Studio','My studio')]].map(([href,label])=><SheetClose asChild key={href}><a href={href} onClick={jump(href)}>{label}</a></SheetClose>)}<SheetClose asChild><a className="button" href="/create">{t('Geschichte starten','Start your story')}</a></SheetClose></nav></SheetContent></Sheet></div></header>;
 }
 export function Footer() { const {t}=useLanguage(); return <footer className="site-footer wrap"><div><Brand/><p>{t('Für die Geschichten, die nur ihr erzählen könnt.','For the stories only you can tell.')}</p></div><nav><a href="/help">{t('Fragen & Hilfe','Questions & help')}</a><a href="/privacy">{t('Datenschutz','Privacy')}</a><a href="/legal">{t('Impressum','Legal')}</a></nav><small>{t('Produktvorschau · Verkauf noch nicht aktiviert','Product preview · Sales are not yet enabled')}</small></footer>; }
