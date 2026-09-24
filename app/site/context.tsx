@@ -1,12 +1,26 @@
 'use client';
-import { createContext, useContext, useEffect, useState, type ReactNode } from 'react';
+import { createContext, useContext, useEffect, useSyncExternalStore, type ReactNode } from 'react';
 export type Language = 'de' | 'en';
-const LanguageContext = createContext({ lang: 'de' as Language, toggle: () => {}, t: (de: string, en: string) => de });
+const LanguageContext = createContext({ lang: 'de' as Language, toggle: () => {}, t: (de: string, en: string): string => de || en });
+function subscribe(callback: () => void) {
+ window.addEventListener('storage', callback);
+ window.addEventListener('story-language-change', callback);
+ return () => { window.removeEventListener('storage', callback); window.removeEventListener('story-language-change', callback); };
+}
+function snapshot(): Language {
+ try { return (new URLSearchParams(location.search).get('lang') || localStorage.getItem('story-language')) === 'en' ? 'en' : 'de'; } catch { return 'de'; }
+}
 export function LanguageProvider({ children }: { children: ReactNode }) {
-  const [lang, setLang] = useState<Language>('de');
-  useEffect(() => { try { const value = new URLSearchParams(location.search).get('lang') || localStorage.getItem('story-language'); if (value === 'en') setLang('en'); } catch {} }, []);
-  useEffect(() => { document.documentElement.lang = lang; }, [lang]);
-  const toggle = () => setLang(old => { const value = old === 'de' ? 'en' : 'de'; try { localStorage.setItem('story-language', value); } catch {} return value; });
-  return <LanguageContext.Provider value={{lang, toggle, t: (de, en) => lang === 'de' ? de : en}}>{children}</LanguageContext.Provider>;
+ const lang = useSyncExternalStore(subscribe, snapshot, () => 'de' as Language);
+ useEffect(() => { document.documentElement.lang = lang; }, [lang]);
+ const toggle = () => {
+  const value = lang === 'de' ? 'en' : 'de';
+  const url = new URL(location.href);
+  url.searchParams.set('lang', value);
+  history.replaceState(null, '', url);
+  try { localStorage.setItem('story-language', value); } catch {}
+  window.dispatchEvent(new Event('story-language-change'));
+ };
+ return <LanguageContext.Provider value={{lang, toggle, t: (de, en) => lang === 'de' ? de : en}}>{children}</LanguageContext.Provider>;
 }
 export const useLanguage = () => useContext(LanguageContext);

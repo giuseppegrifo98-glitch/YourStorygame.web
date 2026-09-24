@@ -1,9 +1,10 @@
 import type { Metadata } from "next";
 import "./globals.css";
+import "./showcase.css";
 
 export const metadata: Metadata = {
-  title: "Spielbare Erinnerungen · Eure Geschichte. Als Spiel.",
-  description: "Verwandle gemeinsame Erinnerungen in ein persönliches Spiel. Sammle eure Momente und gestalte eure Geschichte.",
+  title: "Your Story · Erinnerungen zum Mitspielen",
+  description: "Ein interaktives Webprojekt über die Momente, die bleiben. Entdecke die spielbare Geschichte in fünf Kapiteln und das persönliche Geschichtenstudio.",
   robots: { index: false, follow: false },
   icons: {
     icon: "/favicon.svg",
@@ -17,7 +18,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="de">
+    <html lang="de" data-scroll-behavior="smooth">
       <body className="antialiased">{children}</body>
     </html>
   );
