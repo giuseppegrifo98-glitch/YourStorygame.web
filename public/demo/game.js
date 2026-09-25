@@ -18,23 +18,22 @@
   const keys=new Set();
   let mobile=null;
   const images={},spriteRects={me:[134,0,300,601],luana:[623,0,268,611],pere:[1116,0,275,611],maria:[185,610,224,414],kitten:[606,719,273,297],pablo:[1096,615,350,402]};
-  let spriteReady=false,loaded=0,atlasTexture=null,actionTexture=null;
+  let spriteReady=false,loaded=0;
   $('continue-game').disabled=true;
-  function prepareAtlas(image,extraSeed=null){
-    // Convert the export's neutral preview matte into a game texture in memory.
-    // Flooding only edge-connected matte preserves the white shirt and eyes.
-    const texture=document.createElement('canvas');texture.width=image.naturalWidth;texture.height=image.naturalHeight;
-    const tc=texture.getContext('2d',{willReadFrequently:true});tc.drawImage(image,0,0);
-    try{const pixels=tc.getImageData(0,0,texture.width,texture.height),a=pixels.data,w=texture.width,h=texture.height,seen=new Uint8Array(w*h),queue=new Int32Array(w*h);let head=0,tail=0;
-      function offer(n){if(n<0||n>=w*h||seen[n])return;seen[n]=1;const j=n*4,r=a[j],g=a[j+1],b=a[j+2];if(Math.min(r,g,b)<163||Math.max(r,g,b)-Math.min(r,g,b)>22)return;queue[tail++]=n;}
-      for(let x=0;x<w;x++){offer(x);offer((h-1)*w+x);}for(let y=0;y<h;y++){offer(y*w);offer(y*w+w-1);}if(extraSeed)offer(extraSeed[1]*w+extraSeed[0]);
-      while(head<tail){const n=queue[head++],x=n%w;a[n*4+3]=0;if(x>0)offer(n-1);if(x<w-1)offer(n+1);offer(n-w);offer(n+w);}
-      tc.putImageData(pixels,0,0);return texture;
-    }catch{return image;}
+  // Pre-cropped transparent files avoid large runtime atlases and GPU source cropping.
+  function atlasDraw(c,key,r,x,y,w,h){
+    const name=(key==='luana'?'lana':key),portrait=r[3]<=184;
+    const image=images[(portrait?'head-':'sprite-')+name];
+    if(image?.complete&&image.naturalWidth)c.drawImage(image,x,y,w,h);
   }
-  function atlasDraw(c,key,r,x,y,w,h){c.drawImage(atlasTexture||images.characters,...r,x,y,w,h);}
-  const assets=[['characters','assets/characters.png'],['club','assets/club.png'],['home','assets/home.png'],['sofa','assets/sofa-memory.png'],['action','assets/club-action.png']];
-  assets.forEach(([name,url])=>{const im=new Image();images[name]=im;im.onload=()=>{loaded++;if(name==='characters'){atlasTexture=prepareAtlas(im,[698,152]);spriteReady=true;}if(name==='action')actionTexture=prepareAtlas(im);if(loaded===assets.length){$('continue-game').disabled=false;document.body.dataset.assetsReady='true';}};im.onerror=()=>{$('code-error').textContent='Ein Bild konnte nicht geladen werden. Bitte die Demo erneut öffnen.';};im.src=url;});
+  const spriteNames=['me','lana','pere','maria','kitten','pablo'];
+  const headNames=['me','lana','pere','maria','kitten'];
+  const actionNames=['angry','run','attacker'];
+  const assets=[['club','assets/club.png'],['home','assets/home.png'],['sofa','assets/sofa-memory.png'],
+    ...spriteNames.map(key=>['sprite-'+key,'assets/sprites/'+key+'.png']),
+    ...headNames.map(key=>['head-'+key,'assets/sprites/head-'+key+'.png']),
+    ...actionNames.map(key=>['action-'+key,'assets/sprites/'+key+'.png'])];
+  assets.forEach(([name,url])=>{const im=new Image();images[name]=im;im.onload=()=>{loaded++;if(loaded===assets.length){spriteReady=true;$('continue-game').disabled=false;document.body.dataset.assetsReady='true';}};im.onerror=()=>{$('code-error').textContent='Ein Bild konnte nicht geladen werden. Bitte die Demo erneut öffnen.';};im.src=url+'?v=20260925-3';});
 
   const audio={context:null,master:null,on:false,next:0,step:0,
     init(){try{if(!this.context){this.context=new(window.AudioContext||window.webkitAudioContext)();this.master=this.context.createGain();this.master.gain.value=.18;this.master.connect(this.context.destination);}this.context.resume().catch(()=>{});}catch{}},
@@ -167,14 +166,14 @@
     ctx.restore();
   }
   function actionSprite(key,x,y,height=226,options={}){
-    if(!actionTexture){sprite(ctx,'me',x,y,height,options);return;}
+    const image=images['action-'+key];if(!image?.complete||!image.naturalWidth){sprite(ctx,'me',x,y,height,options);return;}
     const rect={angry:[8,91,504,817],run:[508,121,505,750],attacker:[1013,120,523,790]}[key];
     const width=height*rect[2]/rect[3],bob=options.walk?Math.sin(s.time*17)*4:0;
     ellipse(ctx,x,y+3,width*.31,7,'#0a233e44');ctx.save();ctx.translate(x,y+bob);
     if(options.face===-1)ctx.scale(-1,1);
     if(options.fall)ctx.rotate(options.fall);
     if(options.windup)ctx.rotate(-.09);
-    ctx.drawImage(actionTexture,...rect,-width/2,-height,width,height);ctx.restore();
+    ctx.drawImage(image,-width/2,-height,width,height);ctx.restore();
   }
   function drawClubIncident(){
     const f=s.incident||moments.incidentFrame(s.phaseTime);

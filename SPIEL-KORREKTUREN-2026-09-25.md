@@ -23,3 +23,10 @@
 - Browserprüfung mit Größenanpassung und gesonderten simulierten Touch-Ereignissen; kein physisches iPhone/Android, kein Safari-Gerätetest. Das ursprünglich gemeldete gerätespezifische Symptom ist noch nicht genauer beschrieben.
 - Kein neuer Bildausfall-/Offline-Netzwerktest; bestehende Ladefehleranzeige bleibt erhalten. Bestehende Canvas-Effekte wurden nicht vollständig auf reduzierte Bewegung umgestellt.
 - Änderungen lokal fertig. Dieser Stand wurde noch nicht gepusht oder auf Hostinger veröffentlicht.
+
+## Nachtrag: Grafikfehler auf dem Handy (Version 25.09.26 / 3)
+- Nutzerfotos zeigen falsch ausgeschnittene Figuren, fehlende Porträts sowie alte Dialogtexte. Die genaue GPU-/Browserursache ist ohne betroffenes Gerät nicht reproduziert; ältere Texte belegen einen älteren aktiven Spielstand, nicht zwingend einen bestimmten Cache-Fehler.
+- Laufzeit-Freistellung und Ausschnitte aus großen Sprite-Atlanten durch 14 vorbereitete transparente Einzelbilder ersetzt. Figuren, Köpfe und Aktionsposen verwenden jetzt einfache Bilddarstellung ohne Quellausschnitt. Reproduzierbare Erzeugung: `node scripts/prepare-demo-sprites.mjs`.
+- Versionsgebundene Script-, CSS- und Bildadressen; Service Worker prüft Netzwerkantworten ohne stillschweigende Verwendung eines frischen HTTP-Caches. Sichtbare Versionsnummer im Footer. Ein bereits geöffnetes Spiel muss neu geladen werden; Spielstände werden nicht gelöscht.
+- Produktionsbuild, Lint (eine bestehende Warnung), 34 Spielprüfungen und 10 mobile Steuerungsprüfungen erfolgreich. Browser-Einstieg mit einzelnen Figuren und vollständigem Porträt visuell geprüft; Aktionsszene zusätzlich als Canvas-Aufnahme kontrolliert.
+- Eine Bestätigung auf dem betroffenen Handy steht aus. Die Änderung umgeht den fehleranfälligen Renderingpfad, ist kein Nachweis einer bestimmten Geräteursache.
