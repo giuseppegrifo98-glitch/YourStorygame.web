@@ -9,9 +9,9 @@ import { Header, Footer } from './shell';
 import { FAQList } from './marketing-rest';
 
 const scenes = [
-  { image: 'dance', de: 'Der erste Tanz', en: 'The first dance', chapter: '01', textDe: 'Ein Blick. Ein Tanz. Und plötzlich beginnt eine Geschichte.', textEn: 'A glance. A dance. And suddenly, a story begins.' },
-  { image: 'home', de: 'Ein Stück Zuhause', en: 'A little piece of home', chapter: '04', textDe: 'Die leisen Momente. Und ein kleines Fellknäuel namens Pablo.', textEn: 'The quiet moments. And a little ball of fur called Pablo.' },
-  { image: 'together', de: 'Genau hier. Mit dir.', en: 'Right here. With you.', chapter: '05', textDe: 'Manche Geschichten enden genau dort, wo du sein möchtest.', textEn: 'Some stories end exactly where you want to be.' },
+  { image: 'dance-v4', de: 'Der erste Tanz', en: 'The first dance', chapter: '01', textDe: 'Ein Blick. Ein Tanz. Und plötzlich beginnt eine Geschichte.', textEn: 'A glance. A dance. And suddenly, a story begins.' },
+  { image: 'home-v4', de: 'Ein Stück Zuhause', en: 'A little piece of home', chapter: '04', textDe: 'Die leisen Momente. Und ein kleines Fellknäuel namens Pablo.', textEn: 'The quiet moments. And a little ball of fur called Pablo.' },
+  { image: 'present-v4', de: 'Genau hier. Mit dir.', en: 'Right here. With you.', chapter: '05', textDe: 'Manche Geschichten enden genau dort, wo du sein möchtest.', textEn: 'Some stories end exactly where you want to be.' },
 ];
 
 export function Landing() { return <LanguageProvider><Content /></LanguageProvider>; }
@@ -32,7 +32,7 @@ function Content() {
       <div className="story-hero-art">
         <div className="hero-art-top"><span><Heart size={15} aria-hidden="true" />{t('Für Lana. Von Herzen.', 'For Lana. From the heart.')}</span><span>{t('Spielbare Demo', 'Playable demo')}</span></div>
         <a href="/demo" className="hero-art-link" aria-label={t('Die Geschichte für Lana spielen', 'Play the story for Lana')}>
-          <Image src="/assets/showcase/together.webp" alt={t('Illustration aus der Demo: ein Paar gemeinsam auf dem Sofa im warmen Licht ihres Zuhauses.', 'Illustration from the demo: a couple on their sofa in the warm light of their home.')} fill sizes="(max-width: 800px) 100vw, 55vw" priority />
+          <Image src="/assets/showcase/together-v4.webp" alt={t('Illustration aus der Demo: ein Paar gemeinsam auf dem Sofa im warmen Licht ihres Zuhauses.', 'Illustration from the demo: a couple on their sofa in the warm light of their home.')} fill sizes="(max-width: 800px) 100vw, 55vw" priority />
           <div className="hero-art-caption"><span>{t('Eine Geschichte über uns.', 'A story about us.')}</span><span className="play-disc"><Play size={24} fill="currentColor" aria-hidden="true" /></span></div>
         </a>
         <div className="hero-art-bottom"><span>{t('Aus der spielbaren Lana-Demo', 'From the playable Lana demo')}</span><span>{t('Erinnerungen werden lebendig', 'Memories come to life')}</span></div>

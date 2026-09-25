@@ -5,11 +5,11 @@
     const $=id=>document.getElementById(id),stage=$('stage'),stick=$('joystick'),knob=$('joystick-knob');
     const coarse=matchMedia('(pointer: coarse)'),portrait=matchMedia('(orientation: portrait)');
     const held=new Set(),drivePointers=new Map();
-    let pointer=null,lastLane=-1,dismissed=false,fallback=false,lastScene='',lastShout='',wasPlaying=false;
+    let pointer=null,lastLane=-1,dismissed=false,fallback=false,lastScene='',lastShout='',wasPlaying=false,driveReady=false,laserStarted=false;
     const touch=()=>coarse.matches||navigator.maxTouchPoints>0;
     const nativeFull=()=>document.fullscreenElement===stage||document.webkitFullscreenElement===stage;
     const blocked=()=>api.blocked()||isBlocked();
-    function isBlocked(){return api.state().screen==='play'&&touch()&&portrait.matches&&!dismissed;}
+    function isBlocked(){const s=api.state();return s.screen==='play'&&((touch()&&portrait.matches&&!dismissed)||(s.phase==='drive'&&!driveReady));}
     function release(){drivePointers.clear();$('drive-left').classList.remove('pressed');$('drive-right').classList.remove('pressed');for(const code of held)api.keys.delete(code);held.clear();pointer=null;lastLane=-1;knob.style.transform='translate(0px,0px)';stick.classList.remove('active');}
     function setHeld(list){for(const code of held)if(!list.includes(code)){api.keys.delete(code);held.delete(code);}for(const code of list){api.keys.add(code);held.add(code);}}
     function move(event){
@@ -55,25 +55,36 @@
       button.addEventListener('contextmenu',event=>event.preventDefault());
     }
     $('mobile-action').addEventListener('pointerdown',event=>{event.preventDefault();if(blocked())return;if(api.state().phase==='chase')api.jump();else api.interact();});
-    $('mobile-action').addEventListener('click',event=>{if(event.detail===0&&!blocked())api.interact();});
+    $('mobile-action').addEventListener('click',event=>{if(event.detail===0&&!blocked()){if(api.state().phase==='chase')api.jump();else api.interact();}});
+    $('drive-start').onclick=()=>{if(api.blocked()||(touch()&&portrait.matches&&!dismissed))return;driveReady=true;release();sync();$('game').focus({preventScroll:true});};
+    $('game').addEventListener('pointerdown',()=>{if(api.state().phase==='laser'&&!blocked()){laserStarted=true;sync();}});
+    $('game').addEventListener('pointermove',event=>{if(api.state().phase==='laser'&&!blocked()&&(event.pointerType==='mouse'||event.buttons)){laserStarted=true;sync();}});
     $('game-pause').onclick=()=>api.pause(!api.state().paused);
     $('game-sound').onclick=()=>api.audio.toggle(!api.audio.on);
     function sync(){
       const s=api.state(),playing=s.screen==='play',isTouch=touch();
+      if(lastScene!==s.phase){driveReady=false;laserStarted=false;}
+      if(s.phase==='laser'&&['ArrowLeft','ArrowRight','ArrowUp','ArrowDown','KeyW','KeyA','KeyS','KeyD'].some(key=>api.keys.has(key)))laserStarted=true;
       // Start phones in the page-filling fallback, including Safari without element fullscreen.
       if(playing&&!wasPlaying&&isTouch){fallback=true;document.body.classList.add('immersive');}
       wasPlaying=playing;
       const full=nativeFull()||fallback;
       document.body.classList.toggle('playing',playing);document.body.classList.toggle('touch-game',isTouch);
-      $('rotate-hint').classList.toggle('hidden',!isBlocked());
+      $('rotate-hint').classList.toggle('hidden',!(playing&&isTouch&&portrait.matches&&!dismissed));
       $('fullscreen-nudge').classList.toggle('hidden',!playing||!isTouch||full||portrait.matches||blocked());
       $('game-tools').classList.toggle('hidden',!playing||!full);
-      const driving=playing&&s.phase==='drive'&&!blocked();
+      const driving=playing&&s.phase==='drive'&&!api.blocked()&&!(isTouch&&portrait.matches&&!dismissed);
+      $('drive-start').classList.toggle('hidden',!driving||driveReady);
+      $('drive-controls').classList.toggle('instructing',!driveReady);
+      $('laser-hint').classList.toggle('hidden',!playing||s.phase!=='laser'||blocked()||laserStarted);
+      stick.classList.toggle('hidden',['chase','laser'].includes(s.phase));
+      $('joystick-label').classList.toggle('hidden',['chase','laser'].includes(s.phase));
       $('drive-controls').classList.toggle('hidden',!driving);
-      const usable=playing&&isTouch&&!blocked()&&!s.afterWalk&&['club','home','home-grown','present','laptop','chase','laser'].includes(s.phase);
+      const usable=playing&&isTouch&&!blocked()&&!s.afterWalk&&['club','home','home-grown','present','laptop','chase'].includes(s.phase);
       $('mobile-pad').classList.toggle('hidden',!usable);
       $('mobile-action').classList.toggle('hidden',!usable||!['chase','club','home','home-grown','present','laptop'].includes(s.phase));
-      $('mobile-action').textContent=s.phase==='chase'?'SPRUNG':'AKTION';
+      $('mobile-action').textContent=s.phase==='chase'?'↑ SPRINGEN':'AKTION';
+      $('mobile-action').setAttribute('aria-label',s.phase==='chase'?'Springen':'Interagieren');
       $('joystick-label').textContent=s.phase==='dance'?'PFEIL TREFFEN':s.phase==='chase'?'↑ SPRINGEN':s.phase==='laser'?'LICHTPUNKT':'BEWEGEN';
       if((!usable&&!driving)||lastScene!==s.phase)release();lastScene=s.phase;
       const note=s.phase==='dance'&&s.dance?Math.floor(s.dance.clock/1.15):-1;

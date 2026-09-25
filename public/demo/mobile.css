@@ -55,3 +55,16 @@ body.immersive{overflow:hidden;background:#081c27}body.immersive .masthead,body.
  .drive-controls small{font-size:8px}
 }
 @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+
+/* Invisible steering targets preserve the view after onboarding. */
+.drive-controls:not(.instructing) button>span,.drive-controls:not(.instructing) p{display:none}
+.drive-controls.instructing button{pointer-events:none}
+.drive-start{position:absolute;z-index:6;left:50%;top:45%;transform:translate(-50%,-50%);padding:16px 25px;border:1px solid #e4cf9b;border-radius:999px;background:#f6efdc;color:#173d42;font:600 17px Arial;min-height:52px;cursor:pointer}
+.drive-start span{margin-right:10px}
+.drive-start:focus-visible,.drive-controls button:focus-visible{outline:3px solid #e6be73;outline-offset:-4px}
+.stage[data-scene="chase"] .mobile-action{width:116px;height:94px;border-radius:28px;font-size:15px;background:#173d42d9;opacity:1;margin:0 12px 8px 0}
+.laser-hint{position:absolute;z-index:5;left:50%;top:21%;transform:translateX(-50%);width:min(370px,76%);padding:14px 20px;border-radius:20px;background:#fff7e8;color:#173d42;box-shadow:0 5px 25px #0003;pointer-events:none}
+.laser-hint:after{content:"";position:absolute;left:48%;bottom:-14px;border-left:14px solid transparent;border-right:14px solid transparent;border-top:15px solid #fff7e8}
+.laser-hint strong{font-size:12px;letter-spacing:1px}.laser-hint p{font-size:15px;line-height:1.45;margin:6px 0}.laser-gesture{position:absolute;left:50%;bottom:-65px;font-size:32px;animation:guide-finger 1.8s ease-in-out infinite}
+@keyframes guide-finger{0%,100%{transform:translateX(-35px)}50%{transform:translateX(35px)}}
+@media(prefers-reduced-motion:reduce){.laser-gesture{animation:none}}

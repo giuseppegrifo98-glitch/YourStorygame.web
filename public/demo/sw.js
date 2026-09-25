@@ -1,5 +1,5 @@
-const CACHE='yourstory-demo-2026-09-25-v3';
-const VERSION='20260925-3';
+const CACHE='yourstory-demo-2026-09-25-v4';
+const VERSION='20260925-4';
 const sprites=['me','lana','pere','maria','kitten','pablo','head-me','head-lana','head-pere','head-maria','head-kitten','angry','run','attacker'];
 const versioned=['style.css','mobile.css','game.js','mobile.js','arcade.js','moments.js','assets/club.png','assets/home.png','assets/sofa-memory.png',...sprites.map(name=>'assets/sprites/'+name+'.png')];
 const ASSETS=['./','./index.html','./icon.svg','./manifest.webmanifest','./assets/plex.woff2',...versioned.map(path=>'./'+path+'?v='+VERSION)];
