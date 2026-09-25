@@ -9,8 +9,8 @@
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="mobile-web-app-capable" content="yes">
-  <meta name="description" content="Eine kleine spielbare Zeitreise. Für Luana.">
-  <title>Your Story · Demo für Luana</title>
+  <meta name="description" content="Eine kleine spielbare Zeitreise. Für Lana.">
+  <title>Your Story · Demo für Lana</title>
   <link rel="icon" href="icon.svg" type="image/svg+xml">
   <link rel="manifest" href="manifest.webmanifest">
   <link rel="stylesheet" href="style.css">
@@ -25,7 +25,7 @@
   <main>
     <section id="cover" class="cover">
       <div class="cover-copy">
-        <div class="eyebrow"><span class="tiny-star">✦</span> FÜR LUANA. VON MIR.</div>
+        <div class="eyebrow"><span class="tiny-star">✦</span> FÜR LANA. VON JOE.</div>
         <h1>Weißt du<br><em>noch?</em><span class="title-star" aria-hidden="true">✧</span></h1>
         <p class="lead">Eine Tanzfläche. Ein Fiat Bravo.<br>Ein kleines graues Fellknäuel.<br>Und mittendrin: <strong>wir zwei.</strong></p>
         <p class="cover-note">Komm, wir spielen unsere Geschichte noch einmal.<br>Diesmal siehst du sie durch meine Augen.</p>
@@ -38,7 +38,7 @@
         <button id="continue-game" class="text-button hidden">Deine Zeitreise fortsetzen →</button>
       </div>
       <div class="cover-art">
-        <div class="art-frame"><canvas id="cover-canvas" width="760" height="820" role="img" aria-label="Gezeichnete Spielfiguren von Luana und ihrem Partner auf der Tanzfläche"></canvas><div class="art-caption"><span>UNSER ERSTES KAPITEL</span><strong>Alles begann mit einem Tanz.</strong><span class="caption-line"></span></div></div>
+        <div class="art-frame"><canvas id="cover-canvas" width="760" height="820" role="img" aria-label="Gezeichnete Spielfiguren von Lana und ihrem Partner auf der Tanzfläche"></canvas><div class="art-caption"><span>UNSER ERSTES KAPITEL</span><strong>Alles begann mit einem Tanz.</strong><span class="caption-line"></span></div></div>
         <div class="memory-label"><span class="small-heart">♡</span><span>Für all die Momente,<br><em>die uns zu uns machen.</em></span></div>
         <span class="art-spark one" aria-hidden="true">✧</span><span class="art-spark two" aria-hidden="true">✦</span>
       </div>
@@ -51,6 +51,11 @@
         <div id="scene-badge" class="scene-badge"></div>
         <div id="game-tools" class="game-tools hidden"><button id="game-sound" aria-label="Ton umschalten" aria-pressed="false">♪</button><button id="game-pause" aria-label="Spiel pausieren">Ⅱ</button><button id="game-exit" aria-label="Vollbild verlassen">⛶</button></div>
         <button id="fullscreen-nudge" class="fullscreen-nudge hidden">⛶ Im Vollbild spielen</button>
+        <div id="drive-controls" class="drive-controls hidden" role="group" aria-label="Autosteuerung: links oder rechts halten, loslassen zum Geradeausfahren">
+          <button id="drive-left" aria-label="Nach links lenken – gedrückt halten"><span>←<small>LINKEN DAUMEN HIER HALTEN</small></span></button>
+          <button id="drive-right" aria-label="Nach rechts lenken – gedrückt halten"><span>→<small>RECHTEN DAUMEN HIER HALTEN</small></span></button>
+          <p>Loslassen = geradeaus weiterfahren</p>
+        </div>
         <div id="mobile-pad" class="mobile-pad hidden">
           <button id="mobile-action" class="mobile-action" aria-label="Aktion oder Sprung">AKTION</button>
           <div id="joystick" class="joystick" role="group" aria-label="Joystick: ziehen oder auf eine Richtung tippen"><span class="joystick-arrow joy-left">←</span><span class="joystick-arrow joy-up">↑</span><span class="joystick-arrow joy-down">↓</span><span class="joystick-arrow joy-right">→</span><span id="joystick-knob" class="joystick-knob"></span></div>
@@ -67,7 +72,7 @@
         <div id="retry-overlay" class="retry-overlay hidden" role="dialog" aria-modal="true" aria-labelledby="retry-title"><div class="retry-card"><span class="eyebrow">NOCH EIN VERSUCH.</span><h3 id="retry-title">Das war knapp.</h3><p id="retry-copy"></p><div id="retry-stats" class="retry-stats"></div><button id="retry-go" class="primary">Noch einmal starten ↻</button><button id="retry-skip" class="retry-skip hidden">Challenge überspringen →</button><p id="retry-help" class="retry-help"></p><span class="retry-hint">Enter oder Leertaste · Nur diese Challenge beginnt neu.</span></div></div>
         <div id="pause-overlay" class="modal-overlay hidden"><div class="paper-modal"><span class="eyebrow">EIN MOMENT FÜR EUCH</span><h3>Die Zeit wartet.</h3><p>Atmet durch. Eure Geschichte läuft nicht davon.</p><button id="resume" class="primary">Weiterspielen →</button><button id="back-cover" class="text-button">Zur Übersicht · Fortschritt bleibt gespeichert</button></div></div>
         <div id="chapter-overlay" class="modal-overlay hidden"><div class="paper-modal chapter-modal"><span class="eyebrow">EUER ERINNERUNGSALBUM</span><h3>Noch einmal zurück.</h3><div id="chapter-list"></div><button id="close-chapters" class="text-button">Zurück zum Spiel</button></div></div>
-        <div id="finale" class="finale hidden"><span class="eyebrow">DAMALS. HEUTE. UND ALLES, WAS NOCH KOMMT.</span><div class="finale-heart">♡</div><h3>Wir zwei.<br><em>Ein Wir.</em></h3><p>Erinnerungen sind die kleinen Orte in uns,<br>an die wir immer wieder zurückkehren können.</p><p>Dieses Spiel ist nur ein kleiner Anstoß.<br>Das Schönste daran haben wir längst erlebt: <strong>uns.</strong></p><p class="love">Ich liebe dich, Luana.</p><span class="finale-note">Und unsere Geschichte ist noch lange nicht vorbei.</span><button id="finale-chapters" class="primary">Unsere Erinnerungen ansehen <span>↗</span></button></div>
+        <div id="finale" class="finale hidden"><span class="eyebrow">DAMALS. HEUTE. UND ALLES, WAS NOCH KOMMT.</span><div class="finale-heart">♡</div><h3>Wir zwei.<br><em>Ein Wir.</em></h3><p>Erinnerungen sind die kleinen Orte in uns,<br>an die wir immer wieder zurückkehren können.</p><p>Dieses Spiel ist nur ein kleiner Anstoß.<br>Das Schönste daran haben wir längst erlebt: <strong>uns.</strong></p><p class="love">Ich liebe dich, Lana.</p><span class="finale-note">Und unsere Geschichte ist noch lange nicht vorbei.</span><button id="finale-chapters" class="primary">Unsere Erinnerungen ansehen <span>↗</span></button></div>
       </div>
       <div class="game-footer"><div id="keyboard-hint" class="key-guide"><span><kbd>←</kbd><kbd>→</kbd> Bewegen</span><span><kbd>E</kbd> Interagieren</span><span><kbd>Esc</kbd> Pause</span></div><div class="chapter-progress" aria-label="Kapitel-Fortschritt"><i></i><i></i><i></i><i></i><i></i></div><span id="saved-note" class="saved-note">Fortschritt auf diesem Gerät gespeichert</span></div>
       <div id="touch-controls" class="touch-controls"><div class="touch-arrows"><button data-key="ArrowLeft" aria-label="Nach links">←</button><button data-key="ArrowUp" aria-label="Nach oben">↑</button><button data-key="ArrowDown" aria-label="Nach unten">↓</button><button data-key="ArrowRight" aria-label="Nach rechts">→</button></div><button data-key="Space" class="touch-action">Aktion / Sprung</button></div>

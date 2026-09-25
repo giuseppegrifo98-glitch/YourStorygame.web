@@ -36,6 +36,8 @@
     d.speed += (desired - d.speed) * Math.min(1, dt * 4.5);
     d.distance += d.speed * dt;
     const centre = roadCenter(d.distance);
+    // Keep screen position after releasing steering, including on bends.
+    d.offset = d.x - centre;
     if (input.steer) {
       d.offset += input.steer * 430 * dt;
       d.targetX = null;

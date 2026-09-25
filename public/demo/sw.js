@@ -1,4 +1,4 @@
-const CACHE='yourstory-demo-2026-09-11-v1';
+const CACHE='yourstory-demo-2026-09-25-v2';
 const ASSETS=['./','./index.html','./style.css','./mobile.css','./game.js','./mobile.js','./arcade.js','./moments.js','./icon.svg','./manifest.webmanifest','./assets/characters.png','./assets/club.png','./assets/home.png','./assets/sofa-memory.png','./assets/club-action.png','./assets/plex.woff2'];
 self.addEventListener('install',event=>event.waitUntil(caches.open(CACHE).then(cache=>cache.addAll(ASSETS)).then(()=>self.skipWaiting())));
 self.addEventListener('activate',event=>event.waitUntil(self.clients.claim()));

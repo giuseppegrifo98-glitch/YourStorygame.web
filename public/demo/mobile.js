@@ -4,13 +4,13 @@
   window.MemoryMobile={create(api){
     const $=id=>document.getElementById(id),stage=$('stage'),stick=$('joystick'),knob=$('joystick-knob');
     const coarse=matchMedia('(pointer: coarse)'),portrait=matchMedia('(orientation: portrait)');
-    const held=new Set(),codes=['ArrowLeft','ArrowUp','ArrowDown','ArrowRight'];
-    let pointer=null,lastLane=-1,dismissed=false,fallback=false,lastScene='',lastShout='';
+    const held=new Set(),drivePointers=new Map();
+    let pointer=null,lastLane=-1,dismissed=false,fallback=false,lastScene='',lastShout='',wasPlaying=false;
     const touch=()=>coarse.matches||navigator.maxTouchPoints>0;
     const nativeFull=()=>document.fullscreenElement===stage||document.webkitFullscreenElement===stage;
     const blocked=()=>api.blocked()||isBlocked();
     function isBlocked(){return api.state().screen==='play'&&touch()&&portrait.matches&&!dismissed;}
-    function release(){for(const code of held)api.keys.delete(code);held.clear();pointer=null;lastLane=-1;knob.style.transform='translate(0px,0px)';stick.classList.remove('active');}
+    function release(){drivePointers.clear();$('drive-left').classList.remove('pressed');$('drive-right').classList.remove('pressed');for(const code of held)api.keys.delete(code);held.clear();pointer=null;lastLane=-1;knob.style.transform='translate(0px,0px)';stick.classList.remove('active');}
     function setHeld(list){for(const code of held)if(!list.includes(code)){api.keys.delete(code);held.delete(code);}for(const code of list){api.keys.add(code);held.add(code);}}
     function move(event){
       if(blocked()){release();return;}
@@ -28,22 +28,54 @@
     stick.addEventListener('pointermove',event=>{if(event.pointerId===pointer){event.preventDefault();move(event);}});
     for(const name of ['pointerup','pointercancel','lostpointercapture'])stick.addEventListener(name,event=>{if(event.pointerId===pointer)release();});
     stick.addEventListener('contextmenu',event=>event.preventDefault());
+    function syncDrive(){
+      const directions=new Set(drivePointers.values());
+      setHeld(directions.size===1?[directions.has('left')?'ArrowLeft':'ArrowRight']:[]);
+      $('drive-left').classList.toggle('pressed',directions.has('left'));
+      $('drive-right').classList.toggle('pressed',directions.has('right'));
+    }
+    for(const side of ['left','right']){
+      const button=$('drive-'+side);
+      button.addEventListener('pointerdown',event=>{
+        if(blocked()||api.state().phase!=='drive')return;
+        event.preventDefault();button.setPointerCapture(event.pointerId);
+        api.state().drive.targetX=null;drivePointers.set(event.pointerId,side);syncDrive();
+      });
+      for(const name of ['pointerup','pointercancel','lostpointercapture'])button.addEventListener(name,event=>{
+        if(drivePointers.delete(event.pointerId))syncDrive();
+      });
+      button.addEventListener('keydown',event=>{
+        if(!['Space','Enter'].includes(event.code)||blocked()||api.state().phase!=='drive')return;
+        event.preventDefault();drivePointers.set('keyboard-'+side,side);syncDrive();
+      });
+      button.addEventListener('keyup',event=>{
+        if(['Space','Enter'].includes(event.code)&&drivePointers.delete('keyboard-'+side))syncDrive();
+      });
+      button.addEventListener('blur',()=>{if(drivePointers.delete('keyboard-'+side))syncDrive();});
+      button.addEventListener('contextmenu',event=>event.preventDefault());
+    }
     $('mobile-action').addEventListener('pointerdown',event=>{event.preventDefault();if(blocked())return;if(api.state().phase==='chase')api.jump();else api.interact();});
     $('mobile-action').addEventListener('click',event=>{if(event.detail===0&&!blocked())api.interact();});
     $('game-pause').onclick=()=>api.pause(!api.state().paused);
     $('game-sound').onclick=()=>api.audio.toggle(!api.audio.on);
     function sync(){
-      const s=api.state(),playing=s.screen==='play',isTouch=touch(),full=nativeFull()||fallback;
+      const s=api.state(),playing=s.screen==='play',isTouch=touch();
+      // Start phones in the page-filling fallback, including Safari without element fullscreen.
+      if(playing&&!wasPlaying&&isTouch){fallback=true;document.body.classList.add('immersive');}
+      wasPlaying=playing;
+      const full=nativeFull()||fallback;
       document.body.classList.toggle('playing',playing);document.body.classList.toggle('touch-game',isTouch);
       $('rotate-hint').classList.toggle('hidden',!isBlocked());
       $('fullscreen-nudge').classList.toggle('hidden',!playing||!isTouch||full||portrait.matches||blocked());
       $('game-tools').classList.toggle('hidden',!playing||!full);
-      const usable=playing&&isTouch&&!blocked()&&!s.afterWalk&&['club','home','home-grown','present','laptop','dance','drive','chase','laser'].includes(s.phase);
+      const driving=playing&&s.phase==='drive'&&!blocked();
+      $('drive-controls').classList.toggle('hidden',!driving);
+      const usable=playing&&isTouch&&!blocked()&&!s.afterWalk&&['club','home','home-grown','present','laptop','chase','laser'].includes(s.phase);
       $('mobile-pad').classList.toggle('hidden',!usable);
       $('mobile-action').classList.toggle('hidden',!usable||!['chase','club','home','home-grown','present','laptop'].includes(s.phase));
       $('mobile-action').textContent=s.phase==='chase'?'SPRUNG':'AKTION';
       $('joystick-label').textContent=s.phase==='dance'?'PFEIL TREFFEN':s.phase==='chase'?'↑ SPRINGEN':s.phase==='laser'?'LICHTPUNKT':'BEWEGEN';
-      if(!usable||lastScene!==s.phase)release();lastScene=s.phase;
+      if((!usable&&!driving)||lastScene!==s.phase)release();lastScene=s.phase;
       const note=s.phase==='dance'&&s.dance?Math.floor(s.dance.clock/1.15):-1;
       stick.dataset.lane=note<0?'':String([0,3,1,2,0,3,2,1,0,0,3,1,2,3,0,2,1,3,2,0,1,1,3,0][note%24]);
       $('game-sound').textContent=api.audio.on?'♫':'♪';$('game-sound').setAttribute('aria-pressed',String(api.audio.on));

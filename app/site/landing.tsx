@@ -30,12 +30,12 @@ function Content() {
         <p className="hero-detail">{t('5 Kapitel · ca. 5–10 Minuten · ohne Anmeldung', '5 chapters · about 5–10 minutes · no sign-up')}{lang === 'en' && <span>Demo in German</span>}</p>
       </div>
       <div className="story-hero-art">
-        <div className="hero-art-top"><span><Heart size={15} aria-hidden="true" />{t('Für Luana. Von Herzen.', 'For Luana. From the heart.')}</span><span>{t('Spielbare Demo', 'Playable demo')}</span></div>
-        <a href="/demo" className="hero-art-link" aria-label={t('Die Geschichte für Luana spielen', 'Play the story for Luana')}>
+        <div className="hero-art-top"><span><Heart size={15} aria-hidden="true" />{t('Für Lana. Von Herzen.', 'For Lana. From the heart.')}</span><span>{t('Spielbare Demo', 'Playable demo')}</span></div>
+        <a href="/demo" className="hero-art-link" aria-label={t('Die Geschichte für Lana spielen', 'Play the story for Lana')}>
           <Image src="/assets/showcase/together.webp" alt={t('Illustration aus der Demo: ein Paar gemeinsam auf dem Sofa im warmen Licht ihres Zuhauses.', 'Illustration from the demo: a couple on their sofa in the warm light of their home.')} fill sizes="(max-width: 800px) 100vw, 55vw" priority />
           <div className="hero-art-caption"><span>{t('Eine Geschichte über uns.', 'A story about us.')}</span><span className="play-disc"><Play size={24} fill="currentColor" aria-hidden="true" /></span></div>
         </a>
-        <div className="hero-art-bottom"><span>{t('Aus der spielbaren Luana-Demo', 'From the playable Luana demo')}</span><span>{t('Erinnerungen werden lebendig', 'Memories come to life')}</span></div>
+        <div className="hero-art-bottom"><span>{t('Aus der spielbaren Lana-Demo', 'From the playable Lana demo')}</span><span>{t('Erinnerungen werden lebendig', 'Memories come to life')}</span></div>
       </div>
     </section>
     <div className="project-facts wrap"><span><BookOpen size={18} aria-hidden="true" />{t('Eine Geschichte in fünf Kapiteln', 'One story in five chapters')}</span><span><Monitor size={18} aria-hidden="true" />{t('Direkt im Browser spielbar', 'Playable in your browser')}</span><span><Heart size={18} aria-hidden="true" />{t('Mit persönlichen Orten & Figuren', 'With personal places & characters')}</span></div>
