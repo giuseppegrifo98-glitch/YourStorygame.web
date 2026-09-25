@@ -68,3 +68,6 @@ body.immersive{overflow:hidden;background:#081c27}body.immersive .masthead,body.
 .laser-hint strong{font-size:12px;letter-spacing:1px}.laser-hint p{font-size:15px;line-height:1.45;margin:6px 0}.laser-gesture{position:absolute;left:50%;bottom:-65px;font-size:32px;animation:guide-finger 1.8s ease-in-out infinite}
 @keyframes guide-finger{0%,100%{transform:translateX(-35px)}50%{transform:translateX(35px)}}
 @media(prefers-reduced-motion:reduce){.laser-gesture{animation:none}}
+
+.game-tools .game-home{min-height:42px;padding:9px 12px;background:#f7eedb;color:#193e41;border-color:#d9c59f;font-size:12px}
+.game-tools .game-home:hover{background:#fff9ee}

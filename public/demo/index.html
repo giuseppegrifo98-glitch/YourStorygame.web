@@ -13,13 +13,13 @@
   <title>Your Story · Demo für Lana</title>
   <link rel="icon" href="icon.svg" type="image/svg+xml">
   <link rel="manifest" href="manifest.webmanifest">
-  <link rel="stylesheet" href="style.css?v=20260925-4">
-  <link rel="stylesheet" href="mobile.css?v=20260925-4">
+  <link rel="stylesheet" href="style.css?v=20260925-5">
+  <link rel="stylesheet" href="mobile.css?v=20260925-5">
 </head>
 <body>
   <header class="masthead">
     <a class="wordmark" href="#" id="home-link" aria-label="Zur Spielübersicht"><span class="brand-mark" aria-hidden="true">∞</span><span>your story<span class="brand-dot">.</span></span></a>
-    <a class="edition" href="/">← ZUR YOUR STORY WEBSITE</a>
+    <a class="home-return" href="/">← Zur Hauptseite</a>
     <div class="header-actions"><button id="sound" class="quiet" aria-pressed="false" title="Musik ein- oder ausschalten"><span id="sound-icon">♫</span><span id="sound-label">Ton aus</span></button><button id="pause" class="quiet hidden" aria-label="Spiel pausieren">Ⅱ Pause</button><button id="fullscreen" class="icon-btn" aria-label="Vollbild umschalten" title="Vollbild">⛶</button></div>
   </header>
   <main>
@@ -49,7 +49,7 @@
         <canvas id="game" width="1280" height="720" tabindex="0" role="img" aria-label="Interaktive Spielszene. Bewegung mit Pfeiltasten oder WASD, Interaktion mit E oder Leertaste."></canvas>
         <div id="objective" class="objective"><span class="objective-icon">✦</span><div><span class="objective-label">DEIN MOMENT</span><p id="objective-text">Finde Maria auf der Tanzfläche.</p></div></div>
         <div id="scene-badge" class="scene-badge"></div>
-        <div id="game-tools" class="game-tools hidden"><button id="game-sound" aria-label="Ton umschalten" aria-pressed="false">♪</button><button id="game-pause" aria-label="Spiel pausieren">Ⅱ</button><button id="game-exit" aria-label="Vollbild verlassen">⛶</button></div>
+        <div id="game-tools" class="game-tools hidden"><a class="home-return game-home" href="/" aria-label="Zur Hauptseite von Your Story">← Hauptseite</a><button id="game-sound" aria-label="Ton umschalten" aria-pressed="false">♪</button><button id="game-pause" aria-label="Spiel pausieren">Ⅱ</button><button id="game-exit" aria-label="Vollbild verlassen">⛶</button></div>
         <button id="fullscreen-nudge" class="fullscreen-nudge hidden">⛶ Im Vollbild spielen</button>
         <div id="drive-controls" class="drive-controls hidden" role="group" aria-label="Autosteuerung: links oder rechts halten, loslassen zum Geradeausfahren">
           <button id="drive-left" aria-label="Nach links lenken – gedrückt halten"><span>←<small>LINKEN DAUMEN HIER HALTEN</small></span></button>
@@ -81,11 +81,11 @@
       <p class="story-note">Eine spielbare Erinnerung. Einige Dialoge und Details sind für diese Demo liebevoll ergänzt.</p>
     </section>
   </main>
-  <footer class="site-footer"><span>EURE GESCHICHTE. ZUM WIEDERERLEBEN.</span><span>Mit ♡ und einer Prise Rambazamba. · Version 25.09.26 / 4</span><a class="demo-tag" href="/">← ZUR YOUR STORY WEBSITE</a></footer>
+  <footer class="site-footer"><span>EURE GESCHICHTE. ZUM WIEDERERLEBEN.</span><span>Mit ♡ und einer Prise Rambazamba. · Version 25.09.26 / 5</span><a class="home-return" href="/">← Zur Hauptseite</a></footer>
   <noscript>Bitte aktiviere JavaScript, um eure Geschichte zu spielen.</noscript>
-  <script src="arcade.js?v=20260925-4"></script>
-  <script src="moments.js?v=20260925-4"></script>
-  <script src="mobile.js?v=20260925-4"></script>
-  <script src="game.js?v=20260925-4"></script>
+  <script src="arcade.js?v=20260925-5"></script>
+  <script src="moments.js?v=20260925-5"></script>
+  <script src="mobile.js?v=20260925-5"></script>
+  <script src="game.js?v=20260925-5"></script>
 </body>
 </html>

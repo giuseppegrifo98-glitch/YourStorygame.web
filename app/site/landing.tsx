@@ -9,9 +9,9 @@ import { Header, Footer } from './shell';
 import { FAQList } from './marketing-rest';
 
 const scenes = [
-  { image: 'dance-v4', de: 'Der erste Tanz', en: 'The first dance', chapter: '01', textDe: 'Ein Blick. Ein Tanz. Und plötzlich beginnt eine Geschichte.', textEn: 'A glance. A dance. And suddenly, a story begins.' },
-  { image: 'home-v4', de: 'Ein Stück Zuhause', en: 'A little piece of home', chapter: '04', textDe: 'Die leisen Momente. Und ein kleines Fellknäuel namens Pablo.', textEn: 'The quiet moments. And a little ball of fur called Pablo.' },
-  { image: 'present-v4', de: 'Genau hier. Mit dir.', en: 'Right here. With you.', chapter: '05', textDe: 'Manche Geschichten enden genau dort, wo du sein möchtest.', textEn: 'Some stories end exactly where you want to be.' },
+  { image: 'dance-selected.jpg', de: 'Der erste Tanz', en: 'The first dance', chapter: '01', textDe: 'Ein Blick. Ein Tanz. Und plötzlich beginnt eine Geschichte.', textEn: 'A glance. A dance. And suddenly, a story begins.', altDe: 'Joe und Lana auf der Tanzfläche mit den Richtungstasten der Tanz-Challenge.', altEn: 'Joe and Lana on the dance floor with the dance challenge arrow controls.' },
+  { image: 'chase-selected-2.jpg', de: 'Die verrückte Nacht', en: 'The wild night', chapter: '03', textDe: 'Über Hindernisse springen und gemeinsam eine verrückte Nacht erleben.', textEn: 'Jump over obstacles and relive a wild night together.', altDe: 'Joe springt während der Verfolgungsjagd über ein Hindernis.', altEn: 'Joe jumps over an obstacle during the chase.' },
+  { image: 'pablo-selected.jpg', de: 'Zuhause mit Pablo', en: 'Home with Pablo', chapter: '04', textDe: 'Führe den Lichtpunkt zu den Leckerlis – Pablo folgt dir durchs Wohnzimmer.', textEn: 'Guide the light to the treats – Pablo follows you across the living room.', altDe: 'Joe und Lana im Wohnzimmer; Pablo folgt dem roten Lichtpunkt zu den Leckerlis.', altEn: 'Joe and Lana in the living room; Pablo follows a red light to the treats.' },
 ];
 
 export function Landing() { return <LanguageProvider><Content /></LanguageProvider>; }
@@ -42,10 +42,10 @@ function Content() {
     <section id="experience" tabIndex={-1} className="chapter-section wrap">
       <div className="showcase-heading"><div><p className="section-kicker">{t('Ein Blick in die Geschichte', 'A glimpse into the story')}</p><h2>{t('Aus „Weißt du noch?“ wird ein neues Abenteuer.', '“Remember when?” becomes a new adventure.')}</h2></div><p>{t('Erkunde vertraute Orte, entdecke kleine Details und spiele dich durch gemeinsame Erinnerungen. Jede Szene ist ein Stück dieser Geschichte.', 'Explore familiar places, discover little details, and play through shared memories. Every scene is a piece of this story.')}</p></div>
       <div className="chapter-viewer">
-        <div className="chapter-picture"><Image key={current.image} src={'/assets/showcase/' + current.image + '.webp'} alt={t(current.textDe, current.textEn)} fill sizes="(max-width: 760px) 100vw, 75vw" /><span className="scene-label">{t('Kapitel', 'Chapter')} {current.chapter} / 05</span><a href="/demo" className="scene-play" aria-label={t('Vollständige Demo spielen', 'Play the full demo')}><Play size={18} fill="currentColor" aria-hidden="true" /></a></div>
+        <div className="chapter-picture"><Image key={current.image} src={'/assets/showcase/' + current.image} alt={t(current.altDe, current.altEn)} fill sizes="(max-width: 760px) 100vw, 75vw" /></div>
         <div className="chapter-picker" aria-label={t('Szenenvorschau auswählen', 'Choose a scene preview')}>{scenes.map((item, index) => <button key={item.image} onClick={() => setScene(index)} aria-pressed={scene === index} className={scene === index ? 'selected' : ''}><span>{item.chapter}</span><span>{t(item.de, item.en)}</span><ArrowUpRight size={18} aria-hidden="true" /></button>)}</div>
       </div>
-      <p className="scene-description" aria-live="polite">{t(current.textDe, current.textEn)} <span>{t('Originalszene aus der Demo.', 'Original scene from the demo.')}</span></p>
+      <p className="scene-description" aria-live="polite"><span>{t('Kapitel', 'Chapter')} {current.chapter} / 05 · </span>{t(current.textDe, current.textEn)} <span>{t('Originalszene aus der Demo.', 'Original scene from the demo.')}</span></p>
     </section>
     <section id="how" tabIndex={-1} className="idea-section">
       <div className="wrap idea-layout"><div><p className="section-kicker">{t('Die Idee dahinter', 'The idea behind it')}</p><h2>{t('Ein kleines Spiel. Ein großes Gefühl.', 'A little game. A lasting feeling.')}</h2><p className="idea-intro">{t('Was passiert, wenn ein Spiel von deiner eigenen Welt erzählt? Von den Menschen und Momenten, die sie besonders machen? Aus dieser Frage ist Your Story entstanden.', 'What happens when a game tells the story of your own world? Of the people and moments that make it special? That question became Your Story.')}</p><Link href="/create" className="quiet-link">{t('Das Geschichtenstudio entdecken', 'Explore the story studio')}<ArrowUpRight size={18} aria-hidden="true" /></Link></div>

@@ -56,7 +56,7 @@ h1,h2,h3 { text-wrap:balance; }
 .section-kicker { color:#63786a; font-size:12px; margin-bottom:16px; }
 .chapter-viewer { display:grid; grid-template-columns:minmax(0,1fr) 280px; background:#e9eee7; border-radius:12px; overflow:hidden; border:1px solid #d9e1d6; }
 .chapter-picture { position:relative; aspect-ratio:16/9; min-width:0; background:#173c40; }
-.chapter-picture img { object-fit:cover; }
+.chapter-picture img { object-fit:contain; }
 .scene-label { position:absolute; left:20px; top:20px; padding:7px 12px; border-radius:4px; color:#fff; background:#173b3fe8; font-size:11px; }
 .scene-play { display:grid; place-items:center; position:absolute; bottom:20px; right:20px; width:46px; height:46px; border-radius:50%; background:#f5f2e6; color:#205459; }
 .scene-play:hover { background:#e7c48e; }
