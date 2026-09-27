@@ -9,12 +9,12 @@
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="mobile-web-app-capable" content="yes">
-  <meta name="description" content="Eine kleine spielbare Zeitreise. Für Lana.">
-  <title>Your Story · Demo für Lana</title>
+  <meta name="description" content="Eine kleine spielbare Zeitreise. Für Nina.">
+  <title>Your Story · Demo für Nina</title>
   <link rel="icon" href="icon.svg" type="image/svg+xml">
   <link rel="manifest" href="manifest.webmanifest">
-  <link rel="stylesheet" href="style.css?v=20260925-5">
-  <link rel="stylesheet" href="mobile.css?v=20260925-5">
+  <link rel="stylesheet" href="style.css?v=20260927-6">
+  <link rel="stylesheet" href="mobile.css?v=20260927-6">
 </head>
 <body>
   <header class="masthead">
@@ -27,18 +27,18 @@
       <div class="cover-copy">
         <div class="eyebrow"><span class="tiny-star">✦</span> FÜR LANA. VON JOE.</div>
         <h1>Weißt du<br><em>noch?</em><span class="title-star" aria-hidden="true">✧</span></h1>
-        <p class="lead">Eine Tanzfläche. Ein Fiat Bravo.<br>Ein kleines graues Fellknäuel.<br>Und mittendrin: <strong>wir zwei.</strong></p>
+        <p class="lead">Eine Tanzfläche. Ein Fiat Bravo.<br>Ein kleiner Hund namens Esco.<br>Und mittendrin: <strong>wir zwei.</strong></p>
         <p class="cover-note">Komm, wir spielen unsere Geschichte noch einmal.<br>Diesmal siehst du sie durch meine Augen.</p>
         <form id="unlock-form" class="unlock-form">
           <label for="gift-code">DEIN GESCHENKCODE</label>
           <div class="unlock-row"><input id="gift-code" name="gift-code" placeholder="Code eingeben" autocomplete="off" autocapitalize="characters" spellcheck="false" maxlength="32" aria-describedby="code-hint code-error"><button class="primary" type="submit">Geschenk öffnen <span aria-hidden="true">↗</span></button></div>
           <p id="code-error" class="error" role="alert"></p>
-          <p id="code-hint" class="fine">Zum Ausprobieren: <button type="button" id="fill-code">PABLO</button><span class="sep">·</span>ca. 5–10 Minuten<span class="sep">·</span>5 Kapitel</p>
+          <p id="code-hint" class="fine">Zum Ausprobieren: <button type="button" id="fill-code">ESCO</button><span class="sep">·</span>ca. 5–10 Minuten<span class="sep">·</span>5 Kapitel</p>
         </form>
         <button id="continue-game" class="text-button hidden">Deine Zeitreise fortsetzen →</button>
       </div>
       <div class="cover-art">
-        <div class="art-frame"><canvas id="cover-canvas" width="760" height="820" role="img" aria-label="Gezeichnete Spielfiguren von Lana und ihrem Partner auf der Tanzfläche"></canvas><div class="art-caption"><span>UNSER ERSTES KAPITEL</span><strong>Alles begann mit einem Tanz.</strong><span class="caption-line"></span></div></div>
+        <div class="art-frame"><canvas id="cover-canvas" width="760" height="820" role="img" aria-label="Gezeichnete Spielfiguren von Nina und ihrem Partner auf der Tanzfläche"></canvas><div class="art-caption"><span>UNSER ERSTES KAPITEL</span><strong>Alles begann mit einem Tanz.</strong><span class="caption-line"></span></div></div>
         <div class="memory-label"><span class="small-heart">♡</span><span>Für all die Momente,<br><em>die uns zu uns machen.</em></span></div>
         <span class="art-spark one" aria-hidden="true">✧</span><span class="art-spark two" aria-hidden="true">✦</span>
       </div>
@@ -57,7 +57,7 @@
           <p>Loslassen = geradeaus weiterfahren</p>
         </div>
         <button id="drive-start" class="drive-start hidden"><span aria-hidden="true">▶</span> Fahrt starten</button>
-        <div id="laser-hint" class="laser-hint hidden" role="status"><strong>Pablo 🐾</strong><p>Zeig mir, wo die Leckerlis sind! Tippe auf den Boden oder ziehe den Lichtpunkt mit dem Finger dorthin.</p><span aria-hidden="true" class="laser-gesture">☝</span></div>
+        <div id="laser-hint" class="laser-hint hidden" role="status"><strong>Esco 🐾</strong><p>Zeig mir, wo die Leckerlis sind! Tippe auf den Boden oder ziehe den Lichtpunkt mit dem Finger dorthin.</p><span aria-hidden="true" class="laser-gesture">☝</span></div>
         <div id="mobile-pad" class="mobile-pad hidden">
           <button id="mobile-action" class="mobile-action" aria-label="Aktion oder Sprung">AKTION</button>
           <div id="joystick" class="joystick" role="group" aria-label="Joystick: ziehen oder auf eine Richtung tippen"><span class="joystick-arrow joy-left">←</span><span class="joystick-arrow joy-up">↑</span><span class="joystick-arrow joy-down">↓</span><span class="joystick-arrow joy-right">→</span><span id="joystick-knob" class="joystick-knob"></span></div>
@@ -65,7 +65,7 @@
         </div>
         <div id="rotate-hint" class="rotate-hint hidden" role="dialog" aria-modal="true" aria-labelledby="rotate-title"><span class="rotate-icon" aria-hidden="true">▯ ↻ ▭</span><h3 id="rotate-title">Einmal das Handy drehen.</h3><p>Im Querformat und Vollbild habt ihr die ganze Tanzfläche für euch.</p><button id="rotate-fullscreen" class="primary">⛶ Vollbild starten</button><button id="rotate-dismiss" class="text-button">Erst einmal so spielen</button></div>
         <div id="fullscreen-help" class="fullscreen-help hidden" role="status">Der Spielmodus füllt jetzt die Seite. Falls die Browserleiste bleibt: Öffne die Demo über „Zum Home-Bildschirm“ bzw. „Zum Startbildschirm hinzufügen“, sofern dein Browser das anbietet.<button id="fullscreen-help-close" aria-label="Hinweis schließen">×</button></div>
-        <div id="pablo-score" class="pablo-score hidden" role="status" aria-live="polite"><span>PABLOS LECKERLIS</span><strong id="pablo-count">0 / 10</strong></div>
+        <div id="pablo-score" class="pablo-score hidden" role="status" aria-live="polite"><span>ESCOS LECKERLIS</span><strong id="pablo-count">0 / 10</strong></div>
         <div id="toast" class="toast hidden" role="status"></div>
         <button id="interact" class="interact hidden"><kbd>E</kbd><span>Reden</span></button>
         <div id="rhythm-controls" class="rhythm-controls hidden" aria-label="Tanzrichtungen"><button data-dance="0" aria-label="Tanzschritt links">←</button><button data-dance="1" aria-label="Tanzschritt oben">↑</button><button data-dance="2" aria-label="Tanzschritt unten">↓</button><button data-dance="3" aria-label="Tanzschritt rechts">→</button></div>
@@ -74,18 +74,18 @@
         <div id="retry-overlay" class="retry-overlay hidden" role="dialog" aria-modal="true" aria-labelledby="retry-title"><div class="retry-card"><span class="eyebrow">NOCH EIN VERSUCH.</span><h3 id="retry-title">Das war knapp.</h3><p id="retry-copy"></p><div id="retry-stats" class="retry-stats"></div><button id="retry-go" class="primary">Noch einmal starten ↻</button><button id="retry-skip" class="retry-skip hidden">Challenge überspringen →</button><p id="retry-help" class="retry-help"></p><span class="retry-hint">Enter oder Leertaste · Nur diese Challenge beginnt neu.</span></div></div>
         <div id="pause-overlay" class="modal-overlay hidden"><div class="paper-modal"><span class="eyebrow">EIN MOMENT FÜR EUCH</span><h3>Die Zeit wartet.</h3><p>Atmet durch. Eure Geschichte läuft nicht davon.</p><button id="resume" class="primary">Weiterspielen →</button><button id="back-cover" class="text-button">Zur Übersicht · Fortschritt bleibt gespeichert</button></div></div>
         <div id="chapter-overlay" class="modal-overlay hidden"><div class="paper-modal chapter-modal"><span class="eyebrow">EUER ERINNERUNGSALBUM</span><h3>Noch einmal zurück.</h3><div id="chapter-list"></div><button id="close-chapters" class="text-button">Zurück zum Spiel</button></div></div>
-        <div id="finale" class="finale hidden"><span class="eyebrow">DAMALS. HEUTE. UND ALLES, WAS NOCH KOMMT.</span><div class="finale-heart">♡</div><h3>Wir zwei.<br><em>Ein Wir.</em></h3><p>Erinnerungen sind die kleinen Orte in uns,<br>an die wir immer wieder zurückkehren können.</p><p>Dieses Spiel ist nur ein kleiner Anstoß.<br>Das Schönste daran haben wir längst erlebt: <strong>uns.</strong></p><p class="love">Ich liebe dich, Lana.</p><span class="finale-note">Und unsere Geschichte ist noch lange nicht vorbei.</span><button id="finale-chapters" class="primary">Unsere Erinnerungen ansehen <span>↗</span></button></div>
+        <div id="finale" class="finale hidden"><span class="eyebrow">DAMALS. HEUTE. UND ALLES, WAS NOCH KOMMT.</span><div class="finale-heart">♡</div><h3>Wir zwei.<br><em>Ein Wir.</em></h3><p>Erinnerungen sind die kleinen Orte in uns,<br>an die wir immer wieder zurückkehren können.</p><p>Dieses Spiel ist nur ein kleiner Anstoß.<br>Das Schönste daran haben wir längst erlebt: <strong>uns.</strong></p><p class="love">Ich liebe dich, Nina.</p><span class="finale-note">Und unsere Geschichte ist noch lange nicht vorbei.</span><button id="finale-chapters" class="primary">Unsere Erinnerungen ansehen <span>↗</span></button></div>
       </div>
       <div class="game-footer"><div id="keyboard-hint" class="key-guide"><span><kbd>←</kbd><kbd>→</kbd> Bewegen</span><span><kbd>E</kbd> Interagieren</span><span><kbd>Esc</kbd> Pause</span></div><div class="chapter-progress" aria-label="Kapitel-Fortschritt"><i></i><i></i><i></i><i></i><i></i></div><span id="saved-note" class="saved-note">Fortschritt auf diesem Gerät gespeichert</span></div>
       <div id="touch-controls" class="touch-controls"><div class="touch-arrows"><button data-key="ArrowLeft" aria-label="Nach links">←</button><button data-key="ArrowUp" aria-label="Nach oben">↑</button><button data-key="ArrowDown" aria-label="Nach unten">↓</button><button data-key="ArrowRight" aria-label="Nach rechts">→</button></div><button data-key="Space" class="touch-action">Aktion / Sprung</button></div>
       <p class="story-note">Eine spielbare Erinnerung. Einige Dialoge und Details sind für diese Demo liebevoll ergänzt.</p>
     </section>
   </main>
-  <footer class="site-footer"><span>EURE GESCHICHTE. ZUM WIEDERERLEBEN.</span><span>Mit ♡ und einer Prise Rambazamba. · Version 25.09.26 / 5</span><a class="home-return" href="/">← Zur Hauptseite</a></footer>
+  <footer class="site-footer"><span>EURE GESCHICHTE. ZUM WIEDERERLEBEN.</span><span>Mit ♡ und einer Prise Rambazamba. · Version 27.09.26 / 6</span><a class="home-return" href="/">← Zur Hauptseite</a></footer>
   <noscript>Bitte aktiviere JavaScript, um eure Geschichte zu spielen.</noscript>
-  <script src="arcade.js?v=20260925-5"></script>
-  <script src="moments.js?v=20260925-5"></script>
-  <script src="mobile.js?v=20260925-5"></script>
-  <script src="game.js?v=20260925-5"></script>
+  <script src="arcade.js?v=20260927-6"></script>
+  <script src="moments.js?v=20260927-6"></script>
+  <script src="mobile.js?v=20260927-6"></script>
+  <script src="game.js?v=20260927-6"></script>
 </body>
 </html>

@@ -1,13 +1,13 @@
 {
   "me": {
     "file": "me.png",
-    "width": 300,
-    "height": 601
+    "width": 304,
+    "height": 793
   },
   "lana": {
     "file": "lana.png",
-    "width": 268,
-    "height": 611
+    "width": 247,
+    "height": 754
   },
   "pere": {
     "file": "pere.png",
@@ -21,22 +21,22 @@
   },
   "kitten": {
     "file": "kitten.png",
-    "width": 273,
-    "height": 297
+    "width": 251,
+    "height": 298
   },
   "pablo": {
     "file": "pablo.png",
-    "width": 350,
-    "height": 402
+    "width": 251,
+    "height": 298
   },
   "head-me": {
     "file": "head-me.png",
-    "width": 120,
-    "height": 143
+    "width": 160,
+    "height": 160
   },
   "head-lana": {
     "file": "head-lana.png",
-    "width": 146,
+    "width": 160,
     "height": 160
   },
   "head-pere": {
@@ -51,18 +51,18 @@
   },
   "head-kitten": {
     "file": "head-kitten.png",
-    "width": 212,
-    "height": 184
+    "width": 160,
+    "height": 160
   },
   "angry": {
     "file": "angry.png",
-    "width": 504,
-    "height": 817
+    "width": 360,
+    "height": 706
   },
   "run": {
     "file": "run.png",
-    "width": 505,
-    "height": 750
+    "width": 440,
+    "height": 703
   },
   "attacker": {
     "file": "attacker.png",

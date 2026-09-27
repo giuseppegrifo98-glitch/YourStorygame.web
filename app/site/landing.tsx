@@ -9,9 +9,9 @@ import { Header, Footer } from './shell';
 import { FAQList } from './marketing-rest';
 
 const scenes = [
-  { image: 'dance-selected.jpg', de: 'Der erste Tanz', en: 'The first dance', chapter: '01', textDe: 'Ein Blick. Ein Tanz. Und plötzlich beginnt eine Geschichte.', textEn: 'A glance. A dance. And suddenly, a story begins.', altDe: 'Joe und Lana auf der Tanzfläche mit den Richtungstasten der Tanz-Challenge.', altEn: 'Joe and Lana on the dance floor with the dance challenge arrow controls.' },
-  { image: 'chase-selected-2.jpg', de: 'Die verrückte Nacht', en: 'The wild night', chapter: '03', textDe: 'Über Hindernisse springen und gemeinsam eine verrückte Nacht erleben.', textEn: 'Jump over obstacles and relive a wild night together.', altDe: 'Joe springt während der Verfolgungsjagd über ein Hindernis.', altEn: 'Joe jumps over an obstacle during the chase.' },
-  { image: 'pablo-selected.jpg', de: 'Zuhause mit Pablo', en: 'Home with Pablo', chapter: '04', textDe: 'Führe den Lichtpunkt zu den Leckerlis – Pablo folgt dir durchs Wohnzimmer.', textEn: 'Guide the light to the treats – Pablo follows you across the living room.', altDe: 'Joe und Lana im Wohnzimmer; Pablo folgt dem roten Lichtpunkt zu den Leckerlis.', altEn: 'Joe and Lana in the living room; Pablo follows a red light to the treats.' },
+  { image: 'dance-esco.webp', de: 'Der erste Tanz', en: 'The first dance', chapter: '01', textDe: 'Ein Blick. Ein Tanz. Und plötzlich beginnt eine Geschichte.', textEn: 'A glance. A dance. And suddenly, a story begins.', altDe: 'Tom und Nina auf der Tanzfläche mit den Richtungstasten der Tanz-Challenge.', altEn: 'Tom and Nina on the dance floor with the dance challenge arrow controls.' },
+  { image: 'chase-esco.webp', de: 'Die verrückte Nacht', en: 'The wild night', chapter: '03', textDe: 'Über Hindernisse springen und gemeinsam eine verrückte Nacht erleben.', textEn: 'Jump over obstacles and relive a wild night together.', altDe: 'Tom springt während der Verfolgungsjagd über ein Hindernis.', altEn: 'Tom jumps over an obstacle during the chase.' },
+  { image: 'home-esco.webp', de: 'Zuhause mit Esco', en: 'Home with Esco', chapter: '04', textDe: 'Führe den Lichtpunkt zu den Leckerlis – Esco folgt dir durchs Wohnzimmer.', textEn: 'Guide the light to the treats – Esco follows you across the living room.', altDe: 'Tom und Nina im Wohnzimmer; Esco folgt dem roten Lichtpunkt zu den Leckerlis.', altEn: 'Tom and Nina in the living room; Esco follows a red light to the treats.' },
 ];
 
 export function Landing() { return <LanguageProvider><Content /></LanguageProvider>; }
@@ -30,12 +30,12 @@ function Content() {
         <p className="hero-detail">{t('5 Kapitel · ca. 5–10 Minuten · ohne Anmeldung', '5 chapters · about 5–10 minutes · no sign-up')}{lang === 'en' && <span>Demo in German</span>}</p>
       </div>
       <div className="story-hero-art">
-        <div className="hero-art-top"><span><Heart size={15} aria-hidden="true" />{t('Für Lana. Von Herzen.', 'For Lana. From the heart.')}</span><span>{t('Spielbare Demo', 'Playable demo')}</span></div>
-        <a href="/demo" className="hero-art-link" aria-label={t('Die Geschichte für Lana spielen', 'Play the story for Lana')}>
-          <Image src="/assets/showcase/together-v4.webp" alt={t('Illustration aus der Demo: ein Paar gemeinsam auf dem Sofa im warmen Licht ihres Zuhauses.', 'Illustration from the demo: a couple on their sofa in the warm light of their home.')} fill sizes="(max-width: 800px) 100vw, 55vw" priority />
+        <div className="hero-art-top"><span><Heart size={15} aria-hidden="true" />{t('Für Nina. Von Herzen.', 'For Nina. From the heart.')}</span><span>{t('Spielbare Demo', 'Playable demo')}</span></div>
+        <a href="/demo" className="hero-art-link" aria-label={t('Die Geschichte für Nina spielen', 'Play the story for Nina')}>
+          <Image src="/assets/showcase/together-esco.webp" alt={t('Illustration aus der Demo: ein Paar gemeinsam auf dem Sofa im warmen Licht ihres Zuhauses.', 'Illustration from the demo: a couple on their sofa in the warm light of their home.')} fill sizes="(max-width: 800px) 100vw, 55vw" priority />
           <div className="hero-art-caption"><span>{t('Eine Geschichte über uns.', 'A story about us.')}</span><span className="play-disc"><Play size={24} fill="currentColor" aria-hidden="true" /></span></div>
         </a>
-        <div className="hero-art-bottom"><span>{t('Aus der spielbaren Lana-Demo', 'From the playable Lana demo')}</span><span>{t('Erinnerungen werden lebendig', 'Memories come to life')}</span></div>
+        <div className="hero-art-bottom"><span>{t('Aus der spielbaren Nina-Demo', 'From the playable Nina demo')}</span><span>{t('Erinnerungen werden lebendig', 'Memories come to life')}</span></div>
       </div>
     </section>
     <div className="project-facts wrap"><span><BookOpen size={18} aria-hidden="true" />{t('Eine Geschichte in fünf Kapiteln', 'One story in five chapters')}</span><span><Monitor size={18} aria-hidden="true" />{t('Direkt im Browser spielbar', 'Playable in your browser')}</span><span><Heart size={18} aria-hidden="true" />{t('Mit persönlichen Orten & Figuren', 'With personal places & characters')}</span></div>
