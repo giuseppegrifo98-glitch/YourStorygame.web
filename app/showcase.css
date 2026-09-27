@@ -110,7 +110,14 @@ h1,h2,h3 { text-wrap:balance; }
 .tip-note,.upload-zone { background:#edf2ed; color:#52685f; border-color:#bccfbd; }
 .story-summary { border-color:#d6e2d3; }
 .privacy-note,.form-hint,.save-state,.step-intro,.field>small { color:#60716d; }
+.auth-legal { display:flex; justify-content:center; gap:18px; margin-top:22px; font-size:13px; }
+.auth-legal a { color:#60716d; text-decoration:underline; text-underline-offset:3px; }
+.auth-legal a:hover { color:#183e41; }
+.legal-copy address { margin-top:16px; color:#60716d; font-style:normal; font-size:16px; line-height:1.9; }
+.legal-copy section a { color:#205459; text-decoration:underline; text-underline-offset:3px; overflow-wrap:anywhere; }
+.legal-copy .legal-updated { margin-top:48px; padding-top:22px; border-top:1px solid #d8dfd4; font-size:13px; }
 .auth-card h1,.create-content h2,.studio-title h1,.editor-step h1,.info-page h1 { font-family:Georgia,'Times New Roman',serif; font-weight:400; letter-spacing:-1.5px; }
+.info-page h1 { overflow-wrap:anywhere; }
 .project-grid>* { min-width:0; }
 @media(max-width:760px) { .step-nav { min-width:38px; padding:9px 6px; } .step-nav.active { min-width:118px; } }
 @media(max-width:1100px) {

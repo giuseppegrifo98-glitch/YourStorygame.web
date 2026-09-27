@@ -8,6 +8,10 @@ export async function POST(request: Request) {
     const origin = request.headers.get('origin');
     if (origin && new URL(origin).host !== request.headers.get('host')) throw new HttpError(403, 'invalid_origin');
     const input = await body(request) as { mode?: 'login' | 'register'; email?: string; password?: string; name?: string };
+    // Preserve the registration implementation for a later private test, but
+    // reject public registration requests while this preview is online.
+    const registrationEnabled = process.env.ENABLE_REGISTRATION === 'true';
+    if (input.mode === 'register' && !registrationEnabled) throw new HttpError(403, 'registration_closed');
     const email = input.email?.trim().toLowerCase() || '';
     const password = input.password || '';
     if (!/^\S+@\S+\.\S+$/.test(email) || password.length < 8 || password.length > 200) throw new HttpError(400, 'invalid_credentials');
