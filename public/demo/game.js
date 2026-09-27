@@ -33,7 +33,7 @@
     ...spriteNames.map(key=>['sprite-'+key,'assets/sprites/'+key+'.png']),
     ...headNames.map(key=>['head-'+key,'assets/sprites/head-'+key+'.png']),
     ...actionNames.map(key=>['action-'+key,'assets/sprites/'+key+'.png'])];
-  assets.forEach(([name,url])=>{const im=new Image();images[name]=im;im.onload=()=>{loaded++;if(loaded===assets.length){spriteReady=true;$('continue-game').disabled=false;document.body.dataset.assetsReady='true';}};im.onerror=()=>{$('code-error').textContent='Ein Bild konnte nicht geladen werden. Bitte die Demo erneut öffnen.';};im.src=url+'?v=20260927-6';});
+  assets.forEach(([name,url])=>{const im=new Image();images[name]=im;im.onload=()=>{loaded++;if(loaded===assets.length){spriteReady=true;$('continue-game').disabled=false;document.body.dataset.assetsReady='true';}};im.onerror=()=>{$('code-error').textContent='Ein Bild konnte nicht geladen werden. Bitte die Demo erneut öffnen.';};im.src=url+'?v=20260927-7';});
 
   const audio={context:null,master:null,on:false,next:0,step:0,
     init(){try{if(!this.context){this.context=new(window.AudioContext||window.webkitAudioContext)();this.master=this.context.createGain();this.master.gain.value=.18;this.master.connect(this.context.destination);}this.context.resume().catch(()=>{});}catch{}},
