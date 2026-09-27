@@ -35,7 +35,7 @@ function LegalContent() {
     </section>
     <section>
       <h2>{t('Kontakt', 'Contact')}</h2>
-      <p>{t('Telefon', 'Phone')}: <a href="tel:+4915224117777">01522 411 7777</a><br />{t('E-Mail', 'Email')}: <a href="mailto:dynamicupscale@gmail.com">dynamicupscale@gmail.com</a></p>
+      <p>{t('Telefon', 'Phone')}: <a href="tel:+4915224117777">01522 411 7777</a><br />{t('E-Mail', 'Email')}: <a href="mailto:kontakt@dynamicupscale.com">kontakt@dynamicupscale.com</a></p>
     </section>
     <section>
       <h2>{t('Projektstatus', 'Project status')}</h2>
@@ -64,7 +64,7 @@ function PrivacyContent() {
     <p>{t('Diese Erklärung beschreibt die Datenverarbeitung auf der öffentlich zugänglichen Projektseite, in der spielbaren Demo und im geschlossenen Testbereich.', 'This policy describes data processing on the public project site, in the playable demo, and in the closed test area.')}</p>
     <section>
       <h2>{t('1. Verantwortlicher', '1. Controller')}</h2>
-      <address>Giuseppe Grifo<br />Luisenstraße 9A<br />75228 Ispringen<br />{t('Deutschland', 'Germany')}<br />{t('Telefon', 'Phone')}: <a href="tel:+4915224117777">01522 411 7777</a><br />{t('E-Mail', 'Email')}: <a href="mailto:dynamicupscale@gmail.com">dynamicupscale@gmail.com</a></address>
+      <address>Giuseppe Grifo<br />Luisenstraße 9A<br />75228 Ispringen<br />{t('Deutschland', 'Germany')}<br />{t('Telefon', 'Phone')}: <a href="tel:+4915224117777">01522 411 7777</a><br />{t('E-Mail', 'Email')}: <a href="mailto:kontakt@dynamicupscale.com">kontakt@dynamicupscale.com</a></address>
     </section>
     <section>
       <h2>{t('2. Hosting und Server-Logfiles', '2. Hosting and server logs')}</h2>
